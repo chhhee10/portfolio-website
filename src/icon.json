@@ -150,17 +150,6 @@
         "y": 14
     },
     {
-        "name": "Bitcoin",
-        "pic": "Bitcoin",
-        "folderId": "Utility",
-        "size": 500,
-        "type": ".exe",
-        "x": 15,
-        "y": 15,
-        "category": "Utilities",
-        "description": "Crypto tracking and wallet utility tool."
-    },
-    {
         "name": "001",
         "pic": "Jpeg",
         "folderId": "Picture",
@@ -271,15 +260,15 @@
         "description": "Tool for accessing and managing code repositories online."
     },
     {
-        "name": "WebResume",
-        "pic": "WebResume",
+        "name": "LinkedIn",
+        "pic": "LinkedIn",
         "folderId": "Resume",
-        "size": 2100,
+        "size": 20,
         "type": ".exe",
         "x": 28,
         "y": 28,
         "category": "Productivity",
-        "description": "Interactive web-based resume showcasing personal work and experience."
+        "description": "Professional profile for experience, education, and career updates."
     },
     {
         "name": "AiAgent",
@@ -386,15 +375,6 @@
         "y": 38,
         "category": "Utilities",
         "description": "System tool to monitor active processes and performance."
-    },
-    {
-        "name": "Store",
-        "pic": "Store",
-        "folderId": "Desktop",
-        "size": 5500,
-        "type": ".exe",
-        "x": 39,
-        "y": 39
     },
     {
         "name": "PixelPic",

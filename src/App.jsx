@@ -14,6 +14,9 @@ import WebampPlayer from './components/WinampPlayer';
 import ResumeFile from './components/ResumeFile';
 import Shutdown from './components/Shutdown';
 import MineSweeper from './components/MineSweeper'
+import Tetris from './components/Tetris';
+import TicTacToe from './components/TicTacToe';
+import FlappyBird from './components/FlappyBird';
 import MsnFolder from './components/MsnFolder';
 import iconInfo from './icon.json'
 import Login from './components/Login';
@@ -22,18 +25,21 @@ import WindowsShutdown from './components/WindowsShutdown';
 import BgSetting from './components/BgSetting';
 import Run from './components/Run';
 import Notification from './components/Notification';
-import BTC from './components/BTC';
 import EmptyFolder from './components/EmptyFolder';
 import ErrorBtn from './components/ErrorBtn';
 import RightClickWindows from './components/RightClickWindows';
 import axios from 'axios';
 import loadingSpin from './assets/loading.gif'
+import win95Icon from './assets/95icon.png'
+import defaultWallpaper from './assets/newbg.png'
 import NewsApp from './components/NewsApp'
 import SpinningCat from './components/SpinningCat';
 import Patch from './components/Patch';
 import WindowsDragLogin from './components/WindowsDragLogin';
 import TaskManager from './components/TaskManager';
 import AppIcons from './components/AppIcons';
+import projects from './data/projects';
+import ProjectDetails from './components/ProjectDetails';
 import { StyleHide, imageMapping,
   handleDoubleClickEnterLink,handleDoubleTapEnterMobile,
   handleDoubleClickiframe, handleDoubleTapiframeMobile,
@@ -41,8 +47,88 @@ import { StyleHide, imageMapping,
   handleDoubleClickPhotoOpen,
  } from './components/function/AppFunctions';
 
+function normalizeDesktopIcons(storedIcons, fallbackIcons) {
+  const linkedinTemplate = fallbackIcons.find(icon => icon.name === 'LinkedIn');
+  let hasChanged = false;
+
+  const normalizedIcons = storedIcons
+    .map(icon => {
+      if (icon.name === 'Bitcoin') {
+        hasChanged = true;
+        return null;
+      }
+
+      if (icon.name === 'Store') {
+        hasChanged = true;
+        return null;
+      }
+
+      if (icon.name === 'WebResume') {
+        hasChanged = true;
+        return {
+          ...icon,
+          name: 'LinkedIn',
+          pic: 'LinkedIn',
+          size: linkedinTemplate?.size ?? icon.size,
+          description: linkedinTemplate?.description ?? icon.description,
+        };
+      }
+
+      if (icon.name === 'LinkedIn' && icon.pic !== 'LinkedIn') {
+        hasChanged = true;
+        return {
+          ...icon,
+          pic: 'LinkedIn',
+          description: linkedinTemplate?.description ?? icon.description,
+        };
+      }
+
+      return icon;
+    })
+    .filter(Boolean)
+    .filter((icon, index, arr) => {
+      if (icon.name !== 'LinkedIn') {
+        return true;
+      }
+
+      const firstLinkedInIndex = arr.findIndex(item => item.name === 'LinkedIn');
+      const keepCurrent = firstLinkedInIndex === index;
+
+      if (!keepCurrent) {
+        hasChanged = true;
+      }
+
+      return keepCurrent;
+    });
+
+  const hasResumeLinkedIn = normalizedIcons.some(
+    icon => icon.folderId === 'Resume' && icon.name === 'LinkedIn'
+  );
+
+  if (!hasResumeLinkedIn && linkedinTemplate) {
+    hasChanged = true;
+    normalizedIcons.push(linkedinTemplate);
+  }
+
+  return { normalizedIcons, hasChanged };
+}
+
+function getRandomStartupPhotoName() {
+  const pictureItems = iconInfo.filter(
+    (item) => item.type === '.jpeg' && item.folderId === 'Picture'
+  );
+
+  if (pictureItems.length === 0) {
+    return '1';
+  }
+
+  const randomIndex = Math.floor(Math.random() * pictureItems.length);
+  return String(parseInt(pictureItems[randomIndex].name, 10));
+}
+
 
 function App() {
+  const startupPhotoName = getRandomStartupPhotoName();
   const [ classicTileMode, setClassicTileMode ] = useState(() => {
       const mode = localStorage.getItem('mode')
       return mode ? JSON.parse(mode) : false
@@ -59,7 +145,7 @@ function App() {
   const [keyRef, setKeyRef] = useState(0)
   const [localBg, setLocalBg] = useState(() => {
     const prevBg = localStorage.getItem('background')
-    return prevBg? prevBg : null
+    return prevBg ? prevBg : defaultWallpaper
   })
   const [localEffect, setLocalEffect] = useState(() => {
     const prevEffect = localStorage.getItem('effect')
@@ -121,6 +207,7 @@ function App() {
   const [selectedFolder, setSelectedFolder] = useState({label: 'MyComputer', img: imageMapping('MyComputer')})
   const [currentFolder, setCurrentFolder] = useState('MyComputer')
   const [loading, setLoading] = useState(true)
+  const [bootScreenDone, setBootScreenDone] = useState(false)
   const [resumeStartBar, setResumejectStartBar] = useState(false)
   const [projectStartBar, setProjectStartBar] = useState(false)
   const [calenderToggle, setCalenderToggle] = useState(false)
@@ -183,6 +270,7 @@ function App() {
   const [tap, setTap] = useState([])
   const [lastTapTime, setLastTapTime] = useState(0)
   const [projectUrl, setProjectUrl] = useState('')
+  const [projectWindows, setProjectWindows] = useState([])
   const [MybioExpand, setMybioExpand] = useState(
   {
     expand: false, // fullscreen
@@ -237,12 +325,26 @@ function App() {
   const filteredItems = iconInfo.filter(item => !deleteIcon.includes(item.name));
 
   const parsedItems = localItems ? JSON.parse(localItems) : filteredItems;
+  const { normalizedIcons, hasChanged } = normalizeDesktopIcons(parsedItems, filteredItems);
+
+  if (hasChanged) {
+    localStorage.setItem('icons', JSON.stringify(normalizedIcons));
+  }
 
  
-  return parsedItems;
+  return normalizedIcons;
 });
 
   const [MineSweeperExpand, setMineSweeperExpand] = useState(
+  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+
+  const [TetrisExpand, setTetrisExpand] = useState(
+  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+
+  const [TicTacToeExpand, setTicTacToeExpand] = useState(
+  {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
+
+  const [FlappyBirdExpand, setFlappyBirdExpand] = useState(
   {expand: false, show: false, hide: false, focusItem: true, x: 0, y: 0, zIndex: 1,});
 
   const [MSNExpand, setMSNExpand] = useState(
@@ -325,10 +427,6 @@ function App() {
   const allClears = [ClearTOclippyThanksYouFunction, ClearTOclippySendemailfunction, ClearTOSongfunction, ClearTOclippyUsernameFunction];
 
   useEffect(() => { // force user to update version by clearing their local storage!
-    setTimeout(() => {
-      handleShow('Patch');
-    }, 2500);
-    
     if(!desktopIcon.find(icon => icon.name === 'IE')) {
       localStorage.clear();
       location.reload();
@@ -553,6 +651,48 @@ useEffect(() => {
           setWebsocketConnection(false);
         }
       };
+    }, []);
+
+    useEffect(() => {
+      const bootTimer = setTimeout(() => {
+        setBootScreenDone(true);
+      }, 2200);
+
+      return () => clearTimeout(bootTimer);
+    }, []);
+
+    useEffect(() => {
+      handleDoubleClickPhotoOpen(startupPhotoName, setCurrentPhoto);
+      setTap(['About', 'Project', 'Photo']);
+      setProjectWindows([]);
+      maxZindexRef.current = 4;
+
+      setMybioExpand(prev => ({
+        ...prev,
+        expand: false,
+        show: true,
+        hide: false,
+        focusItem: true,
+        zIndex: 4,
+      }));
+
+      setProjectExpand(prev => ({
+        ...prev,
+        expand: false,
+        show: true,
+        hide: false,
+        focusItem: false,
+        zIndex: 3,
+      }));
+
+      setPhotoOpenExpand(prev => ({
+        ...prev,
+        expand: false,
+        show: true,
+        hide: false,
+        focusItem: false,
+        zIndex: 2,
+      }));
     }, []);
 
 
@@ -901,6 +1041,75 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
   setLastTapTime(now)
 }
 
+  function focusProjectWindow(windowId) {
+    const nextZIndex = (maxZindexRef.current || 0) + 1;
+    maxZindexRef.current = nextZIndex;
+
+    setProjectWindows(prevWindows =>
+      prevWindows.map(windowItem => (
+        windowItem.id === windowId
+          ? { ...windowItem, focusItem: true, hide: false, zIndex: nextZIndex }
+          : { ...windowItem, focusItem: false }
+      ))
+    );
+  }
+
+  function openProjectWindow(project) {
+    const existingHiddenWindow = projectWindows.find(
+      windowItem => windowItem.project.id === project.id && windowItem.hide
+    );
+
+    if (existingHiddenWindow) {
+      focusProjectWindow(existingHiddenWindow.id);
+      return;
+    }
+
+    const nextZIndex = (maxZindexRef.current || 0) + 1;
+    maxZindexRef.current = nextZIndex;
+
+    setProjectWindows(prevWindows => [
+      ...prevWindows.map(windowItem => ({ ...windowItem, focusItem: false })),
+      {
+        id: `${project.id}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        project,
+        expand: false,
+        show: true,
+        hide: false,
+        focusItem: true,
+        x: 0,
+        y: 0,
+        zIndex: nextZIndex,
+      }
+    ]);
+  }
+
+  function updateProjectWindow(windowId, updater) {
+    setProjectWindows(prevWindows =>
+      prevWindows.map(windowItem => {
+        if (windowItem.id !== windowId) return windowItem;
+        return typeof updater === 'function'
+          ? updater(windowItem)
+          : { ...windowItem, ...updater };
+      })
+    );
+  }
+
+  function minimizeProjectWindow(windowId) {
+    setProjectWindows(prevWindows =>
+      prevWindows.map(windowItem => (
+        windowItem.id === windowId
+          ? { ...windowItem, hide: true, focusItem: false }
+          : windowItem
+      ))
+    );
+  }
+
+  function closeProjectWindow(windowId) {
+    setProjectWindows(prevWindows =>
+      prevWindows.filter(windowItem => windowItem.id !== windowId)
+    );
+  }
+
   const contextValue = {
     classicTileMode, setClassicTileMode,
     appIconToggle, setAppIconToggle,
@@ -1034,6 +1243,9 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     deleteTap,
     shutdownWindow, setShutdownWindow,
     MineSweeperExpand, setMineSweeperExpand,
+    TetrisExpand, setTetrisExpand,
+    TicTacToeExpand, setTicTacToeExpand,
+    FlappyBirdExpand, setFlappyBirdExpand,
     MSNExpand, setMSNExpand,
     chatData, setChatData,
     chatValue, setChatValue,
@@ -1046,6 +1258,12 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     login, setLogin,
     openProjectExpand, setOpenProjectExpand,
     projectUrl, setProjectUrl,
+    projectWindows, setProjectWindows,
+    openProjectWindow,
+    updateProjectWindow,
+    minimizeProjectWindow,
+    closeProjectWindow,
+    focusProjectWindow,
     projectname,
     windowsShutDownAnimation, setWindowsShutDownAnimation,
     BgSettingExpand, setBgSettingExpand,
@@ -1078,25 +1296,27 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
     )
   }
 
-  if(loading && !login) {
-    const localThemeBg = localStorage.getItem('theme') || '#098684'; 
+  if((loading || !bootScreenDone) && !login) {
 
     return(
-      <div 
-      style={{
-        width: '100%',
-        height: '100svh',
-        background: localThemeBg
-      }}>
-        <img src={loadingSpin} alt="loading" 
-          style={{
-            width: '30px',
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
+      <div className="boot_screen">
+        <div className="boot_panel">
+          <div className="boot_logo_wrap">
+            <img src={win95Icon} alt="Windows 95 boot logo" className="boot_logo" />
+            <div className="boot_wordmark">
+              <p className="boot_microsoft">Microsoft</p>
+              <h1>Windows 95</h1>
+            </div>
+          </div>
+          <p className="boot_copy">Starting Chetan's desktop experience...</p>
+          <div className="boot_progress_frame" aria-hidden="true">
+            <div className="boot_progress_bar" />
+          </div>
+          <div className="boot_status">
+            <img src={loadingSpin} alt="" className="boot_spinner" />
+            <span>Loading system resources...</span>
+          </div>
+        </div>
       </div>
     )
   }
@@ -1195,15 +1415,24 @@ function handleShowInfolderMobile(name, type) { //important handleshow for in fo
         <MyBioFolder/>
         <ResumeFolder/>
         <ProjectFolder/>
+        {projectWindows.map((windowItem) => (
+          <ProjectDetails
+            key={windowItem.id}
+            windowState={windowItem}
+            project={windowItem.project}
+          />
+        ))}
         <MailFolder/>
         <ResumeFile/>
         <WebampPlayer/>
         <MineSweeper/>
+        <Tetris/>
+        <TicTacToe/>
+        <FlappyBird/>
         <MsnFolder/>
         <OpenProject/>
         <BgSetting/>
         <Run/>
-        <BTC/>
         <Dragdrop/>
         <Footer/>
       </UserContext.Provider>
@@ -1509,6 +1738,9 @@ function ObjectState() {
     { name: 'Winamp',      setter: setWinampExpand,     usestate: WinampExpand,     color: 'rgba(105, 136, 145, 0.85)', size: 'small' },
     { name: 'ResumeFile',  setter: setResumeFileExpand, usestate: ResumeFileExpand, color: 'rgba(133, 165, 67, 0.85)', size: 'small' },
     { name: 'MineSweeper', setter: setMineSweeperExpand,usestate: MineSweeperExpand,color: 'rgba(187, 51, 48, 0.85)', size: 'small' },
+    { name: 'Tetris',      setter: setTetrisExpand,     usestate: TetrisExpand,     color: 'rgba(90, 60, 172, 0.85)', size: 'small' },
+    { name: 'TicTacToe',   setter: setTicTacToeExpand,  usestate: TicTacToeExpand,  color: 'rgba(47, 123, 118, 0.85)', size: 'small' },
+    { name: 'FlappyBird',  setter: setFlappyBirdExpand, usestate: FlappyBirdExpand, color: 'rgba(223, 160, 38, 0.85)', size: 'small' },
     { name: 'MSN',         setter: setMSNExpand,        usestate: MSNExpand,        color: 'rgba(52, 70, 143, 0.85)', size: 'small' },
     { name: 'Internet',    setter: setOpenProjectExpand,usestate: openProjectExpand,color: 'rgba(0, 159, 186, 0.85)', size: 'small' },
     { name: 'Settings',    setter: setBgSettingExpand,  usestate: BgSettingExpand,  color: 'rgba(140, 140, 140, 0.85)', size: 'small' },
@@ -1521,7 +1753,6 @@ function ObjectState() {
     { name: 'Utility',     setter: setUtilityExpand,    usestate: UtilityExpand,    color: 'rgba(116, 85, 54, 0.85)', size: 'small' },
     { name: 'TaskManager', setter: setTaskManagerExpand,usestate: TaskManagerExpand,color: 'rgba(218, 160, 109, 0.85)', size: 'small' },
     { name: 'Store',       setter: setStoreExpand,      usestate: StoreExpand,      color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
-    { name: 'Bitcoin',     setter: setBtcShow,          usestate: btcShow,          color: 'rgba(132, 140, 207, 0.85)', size: 'small' },
     
     // Add user folders dynamically with individual state management
     ...UserCreatedFolder.map(folder => ({

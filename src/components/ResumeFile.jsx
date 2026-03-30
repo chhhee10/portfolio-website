@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import Draggable from 'react-draggable'
 import { motion } from 'framer-motion';
 import resumefile from '../assets/resume.png'
+import chetanResume from '../assets/chetan-resume.pdf'
 import '../css/ResumeFile.css'
 
 
@@ -140,7 +141,8 @@ function ResumeFile() {
             {ResumeFileExpand.show ? (
               <iframe 
               onClick={() => setDownloadBox(false)}
-              src="https://drive.google.com/file/d/1XNn23UA2L82P2__Ccuccl3WMdR2rHG57/preview" 
+              src={chetanResume}
+              title="Chetan Resume"
               frameBorder='0'
             >
             </iframe>

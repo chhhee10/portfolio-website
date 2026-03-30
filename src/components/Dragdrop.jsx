@@ -30,6 +30,7 @@ function Dragdrop() {
     desktopIcon,setDesktopIcon,
     imageMapping,
     handleShow, handleShowMobile,
+    handleDoubleClickEnterLink,
     isTouchDevice,
     iconFocusIcon,
     setStartActive
@@ -108,6 +109,39 @@ function Dragdrop() {
         e.stopPropagation();
     }}
     >
+      <div className="desktop_shortcuts_topright">
+        <button
+          className="desktop_shortcut_button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleShow('ResumeFile');
+          }}
+        >
+          <img src={imageMapping('ResumeFile')} alt="ResumeFile" />
+          <span>ResumeFile</span>
+        </button>
+        <button
+          className="desktop_shortcut_button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDoubleClickEnterLink('Github', handleShow);
+          }}
+        >
+          <img src={imageMapping('Github')} alt="Github" />
+          <span>Github</span>
+        </button>
+        <button
+          className="desktop_shortcut_button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDoubleClickEnterLink('LinkedIn', handleShow);
+          }}
+        >
+          <img src={imageMapping('LinkedIn')} alt="LinkedIn" />
+          <span>LinkedIn</span>
+        </button>
+      </div>
+
       {/* <div className="search_icon"
         style={{
           display: searchPopup ? 'none' : '',

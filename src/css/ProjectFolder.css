@@ -13,6 +13,7 @@
     border-bottom: 1px solid black;
     outline: 1px solid white;
     resize: both;
+    overflow: auto;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -158,57 +159,49 @@
     margin: 0 auto;
     margin-top: 2px;
     background: rgb(255, 255, 255);
+    overflow: auto;
 }
 
-.parent_container-project {
-    height: calc(100%);
-    overflow-y: auto;
-    
-}
-
-.parent_container-project .item_container-project {
-    display: flex;
-    width: fit-content;
-    position: relative;
-    flex-wrap: wrap;
-    gap: 5px;
-    padding: 8px 2px;
-}
-
-.item_container-project .item_1-project {
+.project_directory_list {
     display: grid;
-    position: relative;
-    place-items: center;
-    width: 60px;
-    height: 0px;
-    cursor: default;
-    background: red;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    align-content: start;
+    min-height: 100%;
 }
 
-.item_container-project img {
-    width: 32px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+.project_directory_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 126px;
+    padding: 14px 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+}
+
+.project_directory_item:hover,
+.project_directory_item.active {
+    border: 1px dotted #000;
+    background: rgba(9, 21, 88, 0.08);
+}
+
+.project_directory_item img {
+    width: 48px;
+    height: 48px;
     user-select: none;
 }
 
-.item_container-project .item_1_img_focus-project {
-    filter: brightness(8%) sepia(10) saturate(50) hue-rotate(200deg);
+.project_directory_item span {
+    font-size: 13px;
+    line-height: 1.25;
+    color: #111;
 }
-
-.item_container-project .p_normal {
-    color: black!important;
-}
-
-.item_1_p_focus-project {
-    background: #091558;
-    height: 15px;
-    border: 1px dotted white;
-    color: white;
-  }
-
-
 
 .folder_folder-project .btm_bar_container-project {
     display: flex;
@@ -245,9 +238,6 @@
         left: 1px;
     }
 }
-
-
-
 
 
 

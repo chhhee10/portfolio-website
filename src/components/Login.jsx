@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import login_icon from '../assets/login.png'
 import mario from '../assets/mario.gif'
 import tunnel from '../assets/tunnel.png'
+import defaultWallpaper from '../assets/newbg.png'
 import '../css/Login.css'
 
 function Login() {
@@ -48,6 +49,7 @@ function Login() {
         } else {
           bodyBG.style.backgroundColor = '#098684'
           sectionBG.style.backgroundColor = '#098684'
+          bodyBG.style.backgroundImage = `url(${defaultWallpaper})`
         }
       
     },[])

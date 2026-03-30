@@ -28,6 +28,7 @@ import eleventhPic from '../../assets/011.jpg'
 import binEmp from '../../assets/bin2.png'
 import reset from '../../assets/reset.png'
 import github from '../../assets/github.png'
+import linkedin from '../../assets/linkedin.png'
 import paint from '../../assets/paint.png'
 import aiagent from '../../assets/ai_robot.png'
 import cat from '../../assets/catpic.png'
@@ -41,6 +42,10 @@ import taskmanager from '../../assets/taskmanager.png'
 import notepad from '../../assets/notepad.png'
 import store from '../../assets/store.png'
 import layer from '../../assets/layer.png'
+import game from '../../assets/game.png'
+import tetrisLogo from '../../assets/tetrislogo.png'
+import ticTacToeLogo from '../../assets/tictactoelogo.png'
+import flappyBirdLogo from '../../assets/flappybird.png'
 
 
 
@@ -114,8 +119,10 @@ export function imageMapping (name, type) {
       return MSN;
 
     case 'Internet':
-    case 'WebResume':
       return ie;
+
+    case 'LinkedIn':
+      return linkedin;
 
     case 'Settings':
       return settings;
@@ -147,6 +154,15 @@ export function imageMapping (name, type) {
 
     case 'Github':
       return github;
+
+    case 'Tetris':
+      return tetrisLogo;
+
+    case 'TicTacToe':
+      return ticTacToeLogo;
+
+    case 'FlappyBird':
+      return flappyBirdLogo;
 
     case "paint":
     case "Paint":
@@ -271,23 +287,23 @@ export function handleDoubleClickiframe(name, setOpenProjectExpand, setProjectUr
     break;
 
     case 'AiAgent': 
-        setProjectUrl('https://yuteoctober.github.io/AI_chatbot/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/AI_chatbot/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
     break;
 
     case '3dObject': 
-        setProjectUrl('https://yuteoctober.github.io/3d_book/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/3d_book/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
     break;
 
     case 'Fortune': 
-        setProjectUrl('https://yuteoctober.github.io/week_fortune/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/week_fortune/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
     break;
 
     case 'PixelPic': 
-        setProjectUrl('https://yuteoctober.github.io/Pixel_pic/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/Pixel_pic/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
     break;
 
     case 'IE': 
@@ -314,23 +330,23 @@ export function handleDoubleTapiframeMobile(name, lastTapTime, setLastTapTime, s
         break;
   
         case 'AiAgent': 
-        setProjectUrl('https://yuteoctober.github.io/AI_chatbot/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/AI_chatbot/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
         break;
 
         case '3dObject': 
-        setProjectUrl('https://yuteoctober.github.io/3d_book/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/3d_book/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
         break;
 
         case 'Fortune': 
-        setProjectUrl('https://yuteoctober.github.io/week_fortune/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/week_fortune/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
         break;
 
         case 'PixelPic': 
-        setProjectUrl('https://yuteoctober.github.io/Pixel_pic/'); 
-        setBackTrackIe(prev => [...prev, 'https://yuteoctober.github.io/Pixel_pic/']);
+        setProjectUrl('https://github.com/chhhee10'); 
+        setBackTrackIe(prev => [...prev, 'https://github.com/chhhee10']);
         break;
 
         case 'IE': 
@@ -349,11 +365,15 @@ export function handleDoubleClickEnterLink(name, handleshow) {
   switch(name) {
     case 'Nft': window.open('https://opennft.netlify.app/', '_blank'); break;
     case 'Note': window.open('https://fullstack-stickynotes.netlify.app/', '_blank'); break;
-    case 'Type': window.open('https://yuteoctober.github.io/typingGame/', '_blank'); break;
-    case '3dObject': window.open('https://yuteoctober.github.io/3d_book/', '_blank'); break;
-    case 'Fortune': window.open('https://yuteoctober.github.io/week_fortune/', '_blank'); break;
+    case 'Type': window.open('https://github.com/chhhee10', '_blank'); break;
+    case '3dObject': window.open('https://github.com/chhhee10', '_blank'); break;
+    case 'Fortune': window.open('https://github.com/chhhee10', '_blank'); break;
     case 'Github': 
       handleshow('Github'); 
+      break;
+
+    case 'LinkedIn':
+      handleshow('LinkedIn');
       break;
 
     default: break; 
@@ -367,10 +387,11 @@ if (now - lastTapTime < 300) {
   switch(name) {
     case 'Nft': window.open('https://opennft.netlify.app/', '_blank'); break;
     case 'Note': window.open('https://fullstack-stickynotes.netlify.app/', '_blank'); break;
-    case 'Type': window.open('https://yuteoctober.github.io/typingGame/', '_blank'); break;
-    case 'Github': window.open('https://github.com/Yuteoctober/wins95Portfolio/', '_blank'); break;
-    case '3dObject': window.open('https://yuteoctober.github.io/3d_book/', '_blank'); break;
-    case 'Fortune': window.open('https://yuteoctober.github.io/week_fortune/', '_blank'); break;
+    case 'Type': window.open('https://github.com/chhhee10', '_blank'); break;
+    case 'Github': window.open('https://github.com/chhhee10', '_blank'); break;
+    case 'LinkedIn': window.open('https://www.linkedin.com/in/chetan-raghuvanshi/', '_blank'); break;
+    case '3dObject': window.open('https://github.com/chhhee10', '_blank'); break;
+    case 'Fortune': window.open('https://github.com/chhhee10', '_blank'); break;
     default: break; 
   }
 }
@@ -380,48 +401,48 @@ setLastTapTime(now);
 export function iconContainerSize(size) {
   switch(size) {
     case 1:
-      return {width: '85px', height: '90px'};
+      return {width: '100px', height: '108px'};
     case 2:
-      return {width: '80px', height: '85px'};
+      return {width: '95px', height: '102px'};
     case 3:
-      return {width: '75px', height: '80px'};
+      return {width: '90px', height: '96px'};
     case 4:
-      return {width: '70px', height: '75px'};
+      return {width: '84px', height: '90px'};
     case 5:
-      return {width: '65px', height: '70px'};
+      return {width: '78px', height: '84px'};
     default:
-      return {width: '65px', height: '70px'};
+      return {width: '78px', height: '84px'};
   }
 }
 export function iconImgSize(size) {
   switch(size) {
     case 1:
-      return {width: '55px'};
+      return {width: '66px'};
     case 2:
-      return {width: '50px'};
+      return {width: '60px'};
     case 3:
-      return {width: '45px'};
+      return {width: '54px'};
     case 4:
-      return {width: '40px'};
+      return {width: '48px'};
     case 5:
-      return {width: '35px'};
+      return {width: '42px'};
     default:
-      return {width: '35px'};
+      return {width: '42px'};
   }
 }
 export function iconTextSize(size) {
   switch(size) {
     case 1:
-      return {fontSize: '16px', lineHeight: '13px', number: 1};
+      return {fontSize: '17px', lineHeight: '15px', number: 1};
     case 2:
-      return {fontSize: '15px', lineHeight: '12px', number: 2};
+      return {fontSize: '16px', lineHeight: '14px', number: 2};
     case 3:
-      return {fontSize: '14px', lineHeight: '12px', number: 3};
+      return {fontSize: '15px', lineHeight: '13px', number: 3};
     case 4:
-      return {fontSize: '13px', number: 4};
+      return {fontSize: '14px', lineHeight: '13px', number: 4};
     case 5:
-      return {fontSize: '12px', number: 5};
+      return {fontSize: '13px', lineHeight: '12px', number: 5};
     default:
-      return {fontSize: '12px', number: 5};
+      return {fontSize: '13px', lineHeight: '12px', number: 5};
   }
 }

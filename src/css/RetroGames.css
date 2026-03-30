@@ -1,0 +1,351 @@
+.retro-game-window {
+  position: absolute;
+  display: none;
+  width: 430px;
+  min-width: 320px;
+  min-height: 320px;
+  background: #c3c3c3;
+  border: 2px solid white;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  outline: 1px solid white;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.retro-game-dragbar {
+  display: flex;
+  position: relative;
+  height: 24px;
+  width: 100%;
+  margin-bottom: 1px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.retro-game-title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.retro-game-title img {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  top: 3px;
+  margin-left: 5px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex: 0 0 16px;
+  display: block;
+}
+
+.retro-game-title span {
+  position: relative;
+  font-size: 15px;
+  color: white;
+  margin-left: 5px;
+  line-height: 1;
+  top: 1px;
+}
+
+.retro-game-buttons {
+  display: flex;
+  position: relative;
+  gap: 2px;
+  margin-right: 4px;
+}
+
+.retro-game-buttons > div {
+  width: 17px;
+  height: 17px;
+  background: #c9c9c9;
+  font-weight: bold;
+  border: 1px solid black;
+  border-top-color: rgb(198, 198, 198);
+  border-left-color: rgb(198, 198, 198);
+  box-shadow: inset 1px 1px #ffffff, 1px 1px #000000dd;
+  cursor: default;
+}
+
+.retro-game-buttons > div:not(.retro-game-expand):active {
+  border-top-color: black;
+  border-left-color: black;
+  border-bottom-color: white;
+  border-right-color: white;
+}
+
+.retro-game-dash {
+  position: relative;
+  width: 8px;
+  top: 11px;
+  margin: 0 auto;
+  border-bottom: 2px solid black;
+}
+
+.retro-game-expand {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid black;
+  border-left-color: black;
+  box-shadow: none;
+  margin: 0 auto;
+  top: 3px;
+  z-index: 2;
+}
+
+.retro-game-expand.full {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid black;
+  border-left-color: black;
+  box-shadow: none;
+  margin: 0 auto;
+  top: 5px;
+  right: 2px;
+  z-index: 1;
+}
+
+.retro-game-expand_2 {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid black;
+  border-left-color: black;
+  box-shadow: none;
+  margin: 0 auto;
+  bottom: 6px;
+  left: 1.5px;
+}
+
+.retro-game-x {
+  position: relative;
+  text-align: center;
+  font-size: 18px;
+  bottom: 5px;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .retro-game-x {
+    bottom: 7px;
+    left: 1px;
+  }
+}
+
+.retro-game-menu {
+  display: flex;
+  gap: 18px;
+  padding: 8px 12px 7px;
+  border-bottom: 1px solid #7b7b7b;
+  font-size: 14px;
+}
+
+.retro-game-menu p {
+  margin: 0;
+  position: relative;
+}
+
+.retro-game-body {
+  height: calc(100% - 60px);
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.retro-game-panel {
+  background: #d4d0c8;
+  border-top: 2px solid #7b7b7b;
+  border-left: 2px solid #7b7b7b;
+  border-right: 2px solid #f3f3f3;
+  border-bottom: 2px solid #f3f3f3;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.retro-game-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.retro-game-toolbar button {
+  min-width: 92px;
+  padding: 6px 12px;
+  font: inherit;
+  background: #c3c3c3;
+  border-top: 2px solid #f3f3f3;
+  border-left: 2px solid #f3f3f3;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  cursor: pointer;
+}
+
+.retro-game-toolbar button:active,
+.tictactoe-board button:active {
+  border-top: 2px solid #111;
+  border-left: 2px solid #111;
+  border-right: 2px solid #f3f3f3;
+  border-bottom: 2px solid #f3f3f3;
+}
+
+.retro-game-stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.retro-game-status {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.tictactoe-board {
+  display: grid;
+  grid-template-columns: repeat(3, 76px);
+  gap: 8px;
+  justify-content: center;
+}
+
+.tictactoe-board button {
+  width: 76px;
+  height: 76px;
+  font: inherit;
+  font-size: 28px;
+  background: #c3c3c3;
+  border-top: 2px solid #f3f3f3;
+  border-left: 2px solid #f3f3f3;
+  border-right: 2px solid #111;
+  border-bottom: 2px solid #111;
+  cursor: pointer;
+}
+
+.tictactoe-footer {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.tetris-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.tetris-board {
+  display: grid;
+  grid-template-columns: repeat(10, 22px);
+  gap: 1px;
+  background: #7b7b7b;
+  padding: 6px;
+  border-top: 2px solid #7b7b7b;
+  border-left: 2px solid #7b7b7b;
+  border-right: 2px solid #f3f3f3;
+  border-bottom: 2px solid #f3f3f3;
+}
+
+.tetris-cell {
+  width: 22px;
+  height: 22px;
+  background: #0e0e0e;
+}
+
+.tetris-sidebar {
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.tetris-controls {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.flappy-stage {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #84d6ff 0%, #d8f4ff 70%, #c8f1a4 70%, #87c95d 100%);
+  border-top: 2px solid #7b7b7b;
+  border-left: 2px solid #7b7b7b;
+  border-right: 2px solid #f3f3f3;
+  border-bottom: 2px solid #f3f3f3;
+}
+
+.flappy-pipe {
+  position: absolute;
+  background: linear-gradient(90deg, #2d7f2e 0%, #4bb84f 55%, #2f8e33 100%);
+  border: 2px solid #1f5c21;
+  box-sizing: border-box;
+}
+
+.flappy-pipe-top {
+  top: 0;
+}
+
+.flappy-pipe-bottom {
+  position: absolute;
+}
+
+.flappy-bird {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: #ffd54a;
+  border-radius: 50%;
+  border: 2px solid #8b5b00;
+  box-sizing: border-box;
+}
+
+.flappy-bird::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 9px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 8px solid #ff8a00;
+}
+
+.flappy-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  background: #8f5e2a;
+  border-top: 2px solid #5d3d16;
+}
+
+@media (max-width: 700px) {
+  .retro-game-window {
+    width: min(96vw, 430px);
+  }
+
+  .retro-game-body {
+    padding: 10px;
+  }
+
+  .tictactoe-board {
+    grid-template-columns: repeat(3, 68px);
+  }
+
+  .tictactoe-board button {
+    width: 68px;
+    height: 68px;
+  }
+}

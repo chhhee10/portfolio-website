@@ -4,21 +4,20 @@ import { motion, AnimatePresence  } from 'framer-motion';
 import startIcon from '../assets/95icon.png';
 import run from '../assets/run.png';
 import github from '../assets/github.png';
-import tile from '../assets/tile.png';
+import linkedin from '../assets/linkedin.png';
 import sidebar from '../assets/sidebar95.png';
 import display from '../assets/display.png';
-import project from '../assets/regFolder.png';
-import resume from '../assets/folder.png';
+import gameIcon from '../assets/game.png';
+import resumeFileIcon from '../assets/resume.png';
 import shutdownicon from '../assets/shutdownicon.png';
 import settings from '../assets/setting.png';
-import btc_icon from '../assets/btc_icon.webp'
 import { clippyPhrase, clippySuggest } from './function/ClippyFunction';
 import { BsCheck  } from "react-icons/bs";
 import Calendar from 'react-calendar';
 import { BsFillCaretRightFill } from "react-icons/bs";
 import binEmp from '../assets/bin2.png'
 import bin from '../assets/bin.png'
-import news from '../assets/news.png'
+import folderIcon from '../assets/folder.png'
 
 
 export default function Footer() {
@@ -30,7 +29,6 @@ export default function Footer() {
     const calenderRef = useRef(null);
     const startPopUpRef = useRef(null)
     const projectRef = useRef(null)
-    const resumeRef = useRef(null)
     const [calValue, calOnChange] = useState(new Date());
     const [width, setWidth] = useState(0);
     const [reRenderFooter, setRerenderFooter] = useState(0)
@@ -39,12 +37,12 @@ export default function Footer() {
         classicTileMode, setClassicTileMode,
         appIconToggle, setAppIconToggle,
         deleteTap,
-        tileScreen, setTileScreen,
         onlineUser,
-        newsPopup, setNewsPopup,
-        btcShow, setBtcShow,
         isTouchDevice,
         desktopIcon,
+        projectWindows,
+        focusProjectWindow,
+        minimizeProjectWindow,
         projectStartBar, setProjectStartBar,
         resumeStartBar, setResumejectStartBar,
         calenderToggle, setCalenderToggle,
@@ -81,13 +79,36 @@ export default function Footer() {
         clippyUsername,
      } = useContext(UseContext);
 
+    const gamesMenuItems = [
+        {
+            name: 'MineSweeper',
+            icon: imageMapping('MineSweeper'),
+            onClick: () => handleShow('MineSweeper'),
+        },
+        {
+            name: 'Tetris',
+            icon: imageMapping('Tetris'),
+            onClick: () => handleShow('Tetris'),
+        },
+        {
+            name: 'TicTacToe',
+            icon: imageMapping('TicTacToe'),
+            onClick: () => handleShow('TicTacToe'),
+        },
+        {
+            name: 'FlappyBird',
+            icon: imageMapping('FlappyBird'),
+            onClick: () => handleShow('FlappyBird'),
+        },
+    ];
+
      
      const footerItems = [
         {
             className: "project",
-            imgSrc: project,
-            imgAlt: "project",
-            spanText: "Project",
+            imgSrc: gameIcon,
+            imgAlt: "games",
+            spanText: "Games",
             arrow: true,
             onClick: () => {
                 setProjectStartBar(!projectStartBar)
@@ -96,21 +117,6 @@ export default function Footer() {
             onmouseenter: () => {
                 setProjectStartBar(true)
                 setResumejectStartBar(false)
-            },
-        },
-        {
-            className: "resume",
-            imgSrc: resume,
-            imgAlt: "resume",
-            spanText: "Resume",
-            arrow: true,
-            onClick: () => {
-                setResumejectStartBar(!resumeStartBar)
-                setProjectStartBar(false)
-            },
-            onmouseenter: () => {
-                setResumejectStartBar(true);
-                setProjectStartBar(false);
             },
         },
         {
@@ -138,13 +144,27 @@ export default function Footer() {
             },
         },
         {
-            className: "linked",
-            imgSrc: tile,
-            imgAlt: "Tile",
-            style: { borderRadius: '5px' },
-            spanText: "Tile Screen",
+            className: "resumefile",
+            imgSrc: resumeFileIcon,
+            imgAlt: "resume file",
+            spanText: "ResumeFile",
             onClick: () => {
-                classicTileMode ? setAppIconToggle(true) : setTileScreen(true),
+                handleShow('ResumeFile')
+                setStartActive(false)
+            },
+            onmouseenter: () => {
+                setResumejectStartBar(false);
+                setProjectStartBar(false);
+            },
+        },
+        {
+            className: "linked",
+            imgSrc: linkedin,
+            imgAlt: "LinkedIn",
+            style: { borderRadius: '5px' },
+            spanText: "LinkedIn",
+            onClick: () => {
+                handleDoubleClickEnterLink('LinkedIn', handleShow)
                 setStartActive(false)
             },
             onmouseenter: () => {
@@ -196,15 +216,11 @@ export default function Footer() {
         }
     ];
 
-    // need to put these in useeffect Array
-    const isBitcoinInstalled = desktopIcon.find(item => item.name === 'Bitcoin')
-
-
     useEffect(() => { // put add or remove icon in dependency array
         if (timeBarRef.current) {
         setWidth(timeBarRef.current.offsetWidth);
         }
-    }, [isBitcoinInstalled, timeBarRef, width]);
+    }, [timeBarRef, width]);
 
      const handleWheelScroll = (e) => { // wheel from x to Y on tap
         const container = wheelTapContainer.current;
@@ -215,19 +231,14 @@ export default function Footer() {
         const handleMouseMove = (event) => {
           const startPopupContainer = startPopUpRef.current;
           const projectContainer = projectRef.current;
-          const resumeContainer = resumeRef.current;
 
           if (startPopupContainer) {
             const startRect = startPopupContainer.getBoundingClientRect();
 
             let projectRect = null;
-            let resumeRect = null;
 
             if (projectContainer) {
               projectRect = projectContainer.getBoundingClientRect();
-            }
-            if (resumeContainer) {
-              resumeRect = resumeContainer.getBoundingClientRect();
             }
 
             const isMouseOutsideStart =
@@ -243,14 +254,7 @@ export default function Footer() {
                 event.clientY > projectRect.bottom
               : true;
 
-            const isMouseOutsideResume = resumeRect
-              ? event.clientX < resumeRect.left ||
-                event.clientX > resumeRect.right ||
-                event.clientY < resumeRect.top ||
-                event.clientY > resumeRect.bottom
-              : true;
-
-            if (isMouseOutsideStart && isMouseOutsideProject && isMouseOutsideResume) {
+            if (isMouseOutsideStart && isMouseOutsideProject) {
               setProjectStartBar(false);
               setResumejectStartBar(false);
             }
@@ -356,6 +360,25 @@ export default function Footer() {
       }
 
 
+    function handleProjectWindowTaskClick(windowId) {
+        const windowItem = projectWindows.find(item => item.id === windowId);
+        if (!windowItem) return;
+
+        setStartActive(false);
+
+        if (windowItem.hide) {
+            focusProjectWindow(windowId);
+            return;
+        }
+
+        if (windowItem.focusItem) {
+            minimizeProjectWindow(windowId);
+            return;
+        }
+
+        focusProjectWindow(windowId);
+    }
+
     useEffect(() => { // display clippy when windows start
         clearTimeout(firstTimoutShowclippy.current)
         clearTimeout(ClearTOclippySendemailfunction.current)
@@ -444,11 +467,12 @@ export default function Footer() {
         { label: '3480x2160', value: 5 }
     ];
 
-    const projectFolderItem = desktopIcon.filter(icon => icon.folderId === 'Project').length
-    const resumeFolderItem = desktopIcon.filter(icon => icon.folderId === 'Resume').length
-
     const recycleBin = desktopIcon.filter(icon => icon.folderId === 'RecycleBin');
     const recycleBinLength = recycleBin.length;
+    const taskbarItems = [
+        ...tap.map(item => ({ id: item, label: item, type: 'default' })),
+        ...projectWindows.map(item => ({ id: item.id, label: item.project.name, type: 'projectWindow', windowState: item })),
+    ];
 
     return (
         <>
@@ -469,27 +493,37 @@ export default function Footer() {
                 {/* -------- CREATE TAP ON FOOTER -------- */}
                 <div className="tap_container" ref={wheelTapContainer}
                     style={{
-                        maxWidth: `calc(100% - ${80 + width}px)`
+                        maxWidth: `calc(100% - ${104 + width}px)`
                         }}
 
                     onWheel={handleWheelScroll}
                 >
-                    {tap.map((item, index) => (
-                        <div className="start_tap" key={index}
+                    {taskbarItems.map((item, index) => (
+                        <div className="start_tap" key={item.id || index}
                             onClick={(e) => {
                                 setStartActive(false)
-                                handleHideFolder(index);
+                                if (item.type === 'projectWindow') {
+                                    handleProjectWindowTaskClick(item.id);
+                                } else {
+                                    handleHideFolder(index);
+                                }
                                 e.stopPropagation()
                             }}
-                            style={StyleHide(index, tap, ObjectState)}
+                            style={item.type === 'projectWindow'
+                                ? (item.windowState.focusItem
+                                    ? { boxShadow: 'inset 1px 1px #000, 1px 1px #ffffffdd', background: '#dddcdc' }
+                                    : { boxShadow: 'inset 1px 1px #ffffffdd, 1.5px 1.5px #000', background: '#b3b2b2' })
+                                : StyleHide(index, tap, ObjectState)}
                             >
                             {
                             <img src={
-                                item === 'RecycleBin' && recycleBinLength === 0 ? binEmp
-                                : item === 'RecycleBin' && recycleBinLength > 0 ? bin
-                                : imageMapping(item)} alt={''} />
+                                item.type === 'projectWindow'
+                                ? folderIcon
+                                : item.label === 'RecycleBin' && recycleBinLength === 0 ? binEmp
+                                : item.label === 'RecycleBin' && recycleBinLength > 0 ? bin
+                                : imageMapping(item.label)} alt={''} />
                             }
-                            <p>{item}</p>
+                            <p>{item.label}</p>
                         </div>
                     ))}
                 </div>
@@ -498,20 +532,8 @@ export default function Footer() {
                     ref={timeBarRef}
                 >
                     <div className="icon_time_container">
-                        <img src={news} alt="news"
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    setNewsPopup(!newsPopup)
-                                }}
-                        />
-                        {isBitcoinInstalled && (
-                            <img src={btc_icon} alt="btc_icon"
-    
-                                onClick={() => btcShow.show ? deleteTap('Bitcoin') : handleShow('Bitcoin')}
-                            />
-                        )}
                         <img src={display} alt="display"
-                            style={{width: '20px'}}
+                            style={{width: '24px'}}
                             onClick={(e) => {
                                 e.stopPropagation()
                                 setIconSize(!iconSize)
@@ -563,32 +585,16 @@ export default function Footer() {
                         {projectStartBar && (
                             <motion.div className="sub_start_container"
                                 ref={projectRef}
-                                style={{display: projectFolderItem === 0 ? 'none' : ''}}
                             >
-                            {desktopIcon.filter(icon => icon.folderId === 'Project').map(icon => (
-                                <div className="icon_sub_start" key={icon.name}
-                                    onClick={() => handleShow(icon.name)}
+                            {gamesMenuItems.map(item => (
+                                <div className="icon_sub_start" key={item.name}
+                                    onClick={() => {
+                                        item.onClick();
+                                        setStartActive(false);
+                                    }}
                                 >
-                                    <img src={imageMapping(icon.pic)} alt={''}/>
-                                    <p>{icon.name}</p>
-                                </div>
-                            ))}
-                        </motion.div>
-                        )}
-                        {resumeStartBar && (
-                            <motion.div className="sub_start_container"
-                                ref={resumeRef}
-                                style={{
-                                    display: resumeFolderItem === 0 ? 'none' : '',
-                                    top: '2.55rem'
-                                }}
-                            >
-                            {desktopIcon.filter(icon => icon.folderId === 'Resume').map(icon => (
-                                <div className="icon_sub_start" key={icon.name}
-                                    onClick={() => handleShow(icon.name)}
-                                >
-                                    <img src={imageMapping(icon.pic)} alt={icon.name}/>
-                                    <p>{icon.name}</p>
+                                    <img src={item.icon} alt={item.name}/>
+                                    <p>{item.name}</p>
                                 </div>
                             ))}
                         </motion.div>

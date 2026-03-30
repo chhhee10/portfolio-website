@@ -102,6 +102,16 @@ function EmptyFolder({state, setState, refState, folderName, photoMode, paintMod
   const recycleBin = desktopIcon.filter(icon => icon.folderId === 'RecycleBin');
   const recycleBinLength = recycleBin.length;
 
+  const defaultPosition = photoMode
+    ? {
+        x: window.innerWidth <= 500 ? 20 : 145,
+        y: window.innerWidth <= 500 ? 120 : 170,
+      }
+    : {
+        x: window.innerWidth <= 500 ? 30 : 60,
+        y: window.innerWidth <= 500 ? 30 : 80,
+      };
+
   useEffect(() => { // force re-render, ref can be tracked
     setKeyRef(prev => prev + 1)
   },[useState.show])
@@ -114,10 +124,7 @@ function EmptyFolder({state, setState, refState, folderName, photoMode, paintMod
       scale={1}
       disabled={state.expand}
       bounds={{ top: 0 }}
-      defaultPosition={{ 
-        x: window.innerWidth <= 500 ? 30 : 60,
-        y: window.innerWidth <= 500 ? 30 : 80,
-      }}
+      defaultPosition={defaultPosition}
       onStop={(event, data) => {handleDragStop(event, data)}}
       onStart={() => {
         handleSetFocusItemTrue(folderName)

@@ -89,12 +89,191 @@ select {
 body {
     font-family: 'win95', sans-serif;
   background: #098684;
+  background-image: url('./assets/newbg.png');
   height: 100svh;
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
   overflow: hidden;
   background-repeat: no-repeat;
+}
+
+.desktop_shortcuts_topright {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    z-index: 12;
+}
+
+.desktop_shortcut_button {
+    width: 88px;
+    min-height: 92px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 6px 6px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.desktop_shortcut_button img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.desktop_shortcut_button span {
+    font-size: 13px;
+    line-height: 1.15;
+    text-shadow: 1px 1px 0 #000;
+    word-break: break-word;
+}
+
+.desktop_shortcut_button:hover,
+.desktop_shortcut_button:focus {
+    background: rgba(12, 46, 122, 0.45);
+    outline: 1px dotted #fff;
+}
+
+@media screen and (min-width: 521px) {
+    .desktop_shortcuts_topright {
+        gap: 14px;
+    }
+
+    .desktop_shortcut_button {
+        width: 98px;
+        min-height: 104px;
+        gap: 10px;
+        padding: 8px 6px 8px;
+    }
+
+    .desktop_shortcut_button img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .desktop_shortcut_button span {
+        font-size: 14px;
+    }
+}
+
+.boot_screen {
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at top, #173f7f 0%, #0b1f47 42%, #050914 100%);
+    color: #000;
+}
+
+.boot_panel {
+    width: min(560px, calc(100vw - 32px));
+    padding: 22px 24px 20px;
+    background: #c0c0c0;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #3f3f3f;
+    border-bottom: 3px solid #3f3f3f;
+    box-shadow: 0 0 0 1px #000, 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.boot_logo_wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.boot_logo {
+    width: 74px;
+    height: 74px;
+    image-rendering: pixelated;
+}
+
+.boot_wordmark h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1;
+    font-weight: normal;
+}
+
+.boot_microsoft {
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.boot_copy {
+    margin-top: 18px;
+    font-size: 15px;
+}
+
+.boot_progress_frame {
+    margin-top: 14px;
+    padding: 3px;
+    height: 28px;
+    background: #fff;
+    border-top: 2px solid #7b7b7b;
+    border-left: 2px solid #7b7b7b;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    overflow: hidden;
+}
+
+.boot_progress_bar {
+    height: 100%;
+    width: 40%;
+    background: repeating-linear-gradient(
+        90deg,
+        #000 0 22px,
+        #003b9c 22px 44px
+    );
+    animation: boot-progress 1.7s linear infinite;
+}
+
+.boot_status {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.boot_spinner {
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes boot-progress {
+    from {
+        transform: translateX(-65%);
+    }
+    to {
+        transform: translateX(215%);
+    }
+}
+
+@media (max-width: 520px) {
+    .boot_panel {
+        padding: 18px 16px;
+    }
+
+    .boot_logo_wrap {
+        gap: 12px;
+    }
+
+    .boot_logo {
+        width: 58px;
+        height: 58px;
+    }
 }
 
 
@@ -233,7 +412,7 @@ body {
 .footer {
     display: flex;
     position: fixed;
-    height: 35px;
+    height: 40px;
     width: 100%;
     bottom: 0;
     background: #b3b2b2;
@@ -245,13 +424,13 @@ body {
 .footer .btn_start{
     display: flex;
     position: relative;
-    height: 28px;
-    width: 66px;
+    height: 32px;
+    width: 88px;
     align-items: center;
     justify-content: center;
-    gap: 0px;
-    margin-left: 2px;
-    margin-right: 1px;
+    gap: 2px;
+    margin-left: 3px;
+    margin-right: 3px;
     border-radius: 0px;
     background: #b3b2b2;
     border: 2px solid #f5f2f2;
@@ -265,7 +444,7 @@ body {
 
 .footer .btn_start.active {
     outline: 1px dotted black;
-    outline-offset: -6px;
+    outline-offset: -7px;
     border: 2px solid #1e1d1d;
     border-bottom-color: #f5f2f2;
     border-right-color: #f5f2f2;
@@ -275,13 +454,13 @@ body {
 
 .footer .btn_start img {
     position: relative;
-    width: 22px;
+    width: 27px;
     right: 1px;
 }
 
 .footer .btn_start h4 {
     position: relative;
-    font-size: 13px;
+    font-size: 15px;
     top: 1px;
     left: 1px;
 }
@@ -289,7 +468,7 @@ body {
 .footer .time {
     display: flex;
     position: absolute;
-    height: 28px;
+    height: 30px;
     justify-content: space-around;
     align-items: center;
     right: 4px;
@@ -302,12 +481,12 @@ body {
     width: fit-content;
     height: 100%;
     align-items: center;
-    padding: 0px 2px;
+    padding: 0px 5px;
 
 }
 
 .icon_time_container img {
-    width: 18px;
+    width: 21px;
     position: relative;
     cursor: pointer;
     z-index: 2;
@@ -316,7 +495,7 @@ body {
 .footer .time .p_time_div {
     position: relative;
     top: 1px;
-    padding: 0px 3px;
+    padding: 0px 6px 0px 4px;
     cursor: default;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -327,7 +506,7 @@ body {
 
 .footer .time p {
     position: relative;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: .7px;
     white-space: nowrap;
     top: 0.5px;
@@ -337,8 +516,8 @@ body {
     display: grid;
     grid-template-columns: .3fr 1.9fr;
     position: absolute;
-    width: 180px;
-    bottom: 30.5px;
+    width: 220px;
+    bottom: 35px;
     left: 2px;
     background: #c5c2c2;
     border: 2px solid #f5f2f2;
@@ -362,10 +541,10 @@ body {
 .start_popup div {
     display: flex;
     width: 100%;
-    height: 40px;
+    height: 48px;
     align-items: center;
-    gap: .7rem;
-    padding-left: .6rem;
+    gap: .9rem;
+    padding-left: .8rem;
     cursor: default;
     z-index: 99999999999999;
 }
@@ -380,11 +559,11 @@ body {
 }
 
 .start_popup img {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
 }
 .start_popup span {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .start_popup span::before {
@@ -405,22 +584,22 @@ body {
     grid-area: sidebar;
     background: #7b7d7b;
     height: 100%;
-    width: 25px;
+    width: 31px;
     cursor: default;
 }
 
 .sidebar_popup img {
     position: relative;
-    height: 140px;
+    height: 168px;
     align-self: end;
-    right: 9px;
+    right: 10px;
 }
 
 .footer .start_popup p {
     position: absolute;
-    font-size: 9px;
+    font-size: 11px;
     color: #171414;
-    right: .3rem;
+    right: .45rem;
     margin-top: 3px;
 }
 
@@ -432,13 +611,13 @@ body {
     display: flex;
     position: absolute;
     flex-direction: column;
-    width: 140px !important;
-    max-height: 244px;
+    width: 168px !important;
+    max-height: 292px;
     height: fit-content !important;
     background: red;
     gap: 0 !important;
     padding: 2px 0px!important;
-    left: 10.8rem;
+    left: 13.2rem;
     top: -1px;
     background: #bdb9b9;
     border: 1px solid #141414;
@@ -458,19 +637,19 @@ body {
     position: relative;
     width: 99%;
     height: fit-content!important;
-    padding: 2px 4px;
-    gap: 9px;
+    padding: 4px 6px;
+    gap: 10px;
 }
 
 .sub_start_container .icon_sub_start img {
     position: relative;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
 }
 
 .sub_start_container .icon_sub_start p {
     position: relative;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 
@@ -501,12 +680,12 @@ body {
 .tap_container {
     display: flex;
     position: relative;
-    padding-right: 2px;
+    padding-right: 4px;
     justify-content: flex-start;
     align-items: center;
     height: 100%;
-    margin-left: 4px;
-    gap: 4px;
+    margin-left: 5px;
+    gap: 5px;
     overflow-x: scroll;
     overflow-y: hidden;
     scrollbar-width: none; 
@@ -522,12 +701,12 @@ body {
     display: flex;
     position: relative;
     align-items: center;
-    gap: 4px;
-    height: 26px;
-    max-width: 180px;
+    gap: 6px;
+    height: 34px;
+    max-width: 220px;
     min-width: 30px;
-    width: 200px;
-    padding: 0px 8px;
+    width: 220px;
+    padding: 0px 10px;
     cursor: default;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -545,26 +724,26 @@ body {
 
 @media screen and (width <= 800px){
     .start_tap {
-        max-width: 140px;
+        max-width: 170px;
     }  
 }
 
 @media screen and (width <= 500px){
     .start_tap {
-        max-width: 80px;
+        max-width: 96px;
     }  
 }
 
 
 .start_tap img {
     position: relative;
-    width: 15px;
+    width: 19px;
 }
 
 .start_tap p {
     position: relative;
     top: 1px;
-    font-size: 13px;
+    font-size: 14px;
     white-space: nowrap;
 }
 
@@ -1004,4 +1183,3 @@ body {
 .search_bar span:hover {
     opacity: 1;
 }
-

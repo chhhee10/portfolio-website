@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { SketchPicker } from 'react-color';
 import settingIcon from '../assets/setting.png'
 import bgPic from '../assets/bgpc.png'
+import defaultWallpaper from '../assets/newbg.png'
 import bg0 from '../assets/bg0.png'
 import bg1 from '../assets/bg1.png'
 import bg2 from '../assets/bg2.jpg'
@@ -41,7 +42,7 @@ function BgSetting() {
   
   const [ localBg, setLocalBg ] = useState(() => {
     const prevBg = localStorage.getItem('background')
-    return prevBg? prevBg : null
+    return prevBg ? prevBg : defaultWallpaper
   })
   const [ localEffect, setLocalEffect ] = useState(() => {
     const prevEffect = localStorage.getItem('effect')
@@ -51,7 +52,7 @@ function BgSetting() {
   const [ themeColor, setThemeColor ] = useState(null)
   const [ localtheme, setLocalTheme ] = useState(() => {
     const prevTheme = localStorage.getItem('theme')
-    return prevTheme? prevTheme : null
+    return prevTheme ? prevTheme : '#098684'
   })
   const [ selectedBg2, setSelectedBg2 ] = useState(null)
   const [ selectedBg2Effect, setSelectedBg2Effect ] = useState(null)

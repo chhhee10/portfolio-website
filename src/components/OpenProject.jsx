@@ -101,18 +101,18 @@ function OpenProject() {
         
 
     case 'AiAgent': 
-        return 'https://yuteoctober.github.io/AI_chatbot/';
+        return 'https://github.com/chhhee10';
 
     case '3dObject': 
-        return 'https://yuteoctober.github.io/3d_book/'; 
+        return 'https://github.com/chhhee10'; 
         
 
     case 'Fortune': 
-        return 'https://yuteoctober.github.io/week_fortune/';
+        return 'https://github.com/chhhee10';
 
 
     case 'PixelPic': 
-        return 'https://yuteoctober.github.io/Pixel_pic/'; 
+        return 'https://github.com/chhhee10'; 
 
     case 'IE': 
         return'https://www.google.com/search?igu=1';

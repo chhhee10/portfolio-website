@@ -3,7 +3,7 @@
 .bio_folder {
     display: none;
     position: fixed;
-    width: 420px;
+    width: 500px;
     height: 475px;
     min-height: 320px;
     background: #c5c4c4;
@@ -170,27 +170,28 @@
     position: relative;
     width: calc(100% - 10px);
     height: calc(100% - 95px);
-    grid-template-columns: 1/2;
-    padding: 1rem 1.5rem;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 18px;
+    padding: 1rem 1rem 1rem 1.1rem;
     border: 2px solid rgb(53, 52, 52);
     border-top-color: #f0efef;
     border-left-color: #f0efef;
     margin: 0 auto;
     margin-top: 0;
     background: #c5c4c4;
-    overflow: hidden;
-    word-break: break-word;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-break: normal;
+    overflow-wrap: break-word;
     grid-template-areas: 
-    /* 'bio_h1 bio_h1' */
     'bio_img biotext_container'
-    /* 'cv_container cv_container'; */
 }
 
 .folder_content .biotext_container {
     position: relative;
     display: flex;
     flex-direction: column;
-    row-gap: 3px;
+    min-width: 0;
 }
 
 .biotext_container p {
@@ -198,17 +199,31 @@
     white-space: normal;
 }
 
+.folder_content-bio.general_layout {
+    align-items: start;
+}
+
+.folder_content-bio.stacked_layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    'bio_img'
+    'biotext_container';
+}
+
 .folder_content-bio .bio_img {
     position: relative;
-    width: 180px;
-    margin-left: -1.5rem;
-    top: 1.2rem;
+    grid-area: bio_img;
+    width: 165px;
+    margin-left: 0;
+    top: .8rem;
 }
 .folder_content-bio .bio_img_other {
     position: relative;
+    grid-area: bio_img;
     width: 150px;
     left: 50%;
     transform: translateX(-50%);
+    margin-bottom: .35rem;
 }
 
 /* .folder_content-bio h1 {
@@ -221,34 +236,67 @@
 
 .folder_content-bio .bio_text_1 {
     position: relative;
+    grid-area: biotext_container;
     font-size: 12px;
-    padding-top: 1rem;
-    padding-left: 1rem;
-    left: 1.2rem;
+    padding-top: .7rem;
+    padding-left: 0;
+    left: 0;
+    line-height: 1.4;
 }
 
 .folder_content-bio .bio_text_1 strong {
     color: #1f1e1e;
 }
 
-.folder_content-bio .bio_text_1 span {
-    padding-left: 10px;
+.folder_content-bio .bio_text_1_other {
+    position: relative;
+    grid-area: biotext_container;
+    font-size: 12px;
+    padding-left: 0;
+    line-height: 1.45;
+}
+
+.bio_text_content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.bio_section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bio_section strong {
+    color: #1f1e1e;
+}
+
+.bio_section p {
+    margin: 0;
     color: #2b2828;
 }
 
-
-.folder_content-bio .bio_text_1_other {
-    position: relative;
-    font-size: 12px;
-    padding-left: 1rem;
-
+.bio_email {
+    overflow-wrap: anywhere;
 }
 
-.folder_content-bio .bio_text_1_other span {
-    background: rgb(181, 181, 181);
-    font-weight: bold;
-    padding: 0px 3px;
-    color: #292727;
+@media screen and (width <= 560px) {
+    .bio_folder {
+        width: 440px;
+    }
+
+    .folder_content .folder_content-bio {
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 14px;
+        padding: 0.9rem;
+    }
+
+    .folder_content-bio .bio_img {
+        width: 140px;
+        top: 1rem;
+    }
 }
 
 

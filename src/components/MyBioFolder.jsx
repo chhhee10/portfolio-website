@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import Draggable from 'react-draggable'
 import { motion } from 'framer-motion';
 import About from '../assets/ipng.png'
-import bioPC from '../assets/bio_pc.png'
+import profileImage from '../assets/profile.png'
 import tech from '../assets/tech.png'
 import hobby from '../assets/hobby.png'
 import '../css/MyBioFolder.css'
@@ -26,53 +26,73 @@ function MyBioFolder() {
     deleteTap,
    } = useContext(UseContext);
 
-   const technologyText = ( // don't have to use DangerousHTML
-    <>
-        I mainly use <span>JavaScript</span> and <span>React</span> 
-        to create user-friendly interfaces, often incorporating <span>Tailwind</span> CSS for styling. 
-        I've also developed full-stack projects with <span>Node.js</span>, 
-        <span>Express</span>, <span>MongoDB</span> and 
-        <span>MySQL</span> by bringing together the front end and back end 
-        for seamless applications.
-    </>
-  );
-
-  const bioText = ( // don't have to use DangerousHTML
-    <>
-        <strong>Objective:</strong>
-        <br />
-        <span>Building pixel perfect web </span>
-        <span>application.</span>
-        <br />
-        <br />
+  const bioText = (
+    <div className="bio_text_content">
+      <div className="bio_section">
         <strong>Information:</strong>
-        <br />
-        <span>Yute S. Lilitprapun</span>
-        <br />
-        <span>Front-end developer</span>
-        <br />
-        <span>929-235-5371</span>
-        <br />
-        <br />
-        <strong>Location: </strong>
-        <br />
-        <span>New York City, Queens</span>
-        <br />
-        <span>Open to work</span>
-        <br />
-        <span>On Site / Remote</span>
-    </>
+        <p>Chetan Raghuvanshi</p>
+        <p>Computer Science Student</p>
+        <p>Aspiring Software Engineer</p>
+        <p>Interested in AI/ML, Web 3&amp; Systems</p>
+        <p className="bio_email">chetanraghuvanshi85@gmail.com</p>
+      </div>
+
+      <div className="bio_section">
+        <strong>Objective:</strong>
+        <p>Building scalable and meaningful software while continuously improving my problem-solving skills.</p>
+        <p>Currently focused on Data Structures, System Design, and real-world projects.</p>
+      </div>
+
+      <div className="bio_section">
+        <strong>Location:</strong>
+        <p>Bengaluru, India</p>
+        <p>Open to Internships</p>
+        <p>Remote / On-site</p>
+      </div>
+    </div>
   );
 
-  const hobbyText = ( // don't have to use DangerousHTML
-    <>
-        In my free time, I love gaming with friends. 
-        When I'm not at my computer, I make an effort 
-        to hit the gym, discover new restaurants, 
-        and go on adventures like hiking. 
-        I played basketball in high school and would love to 
-        get back into it!
-    </>
+  const technologyText = (
+    <div className="bio_text_content">
+      <div className="bio_section">
+        <strong>Core Modules Loaded:</strong>
+        <p>C/C++ • Python • JavaScript • Solidity • Rust</p>
+      </div>
+
+      <div className="bio_section">
+        <p><strong>UI Layer:</strong> React + Tailwind</p>
+        <p><strong>Server Layer:</strong> Node.js / Express / FastAPI</p>
+      </div>
+
+      <div className="bio_section">
+        <strong>Decentralized Systems:</strong>
+        <p>Ethereum (Smart Contracts, Ethers.js)</p>
+        <p>Solana (Rust, high-performance dApps)</p>
+      </div>
+
+      <div className="bio_section">
+        <p><strong>Data Layer:</strong> MongoDB • MySQL</p>
+        <p><strong>Hardware Layer:</strong> ESP32 • IoT Systems</p>
+      </div>
+
+      <div className="bio_section">
+        <p><strong>Extensions:</strong> TensorFlow • OpenCV</p>
+      </div>
+
+      <div className="bio_section">
+        <p><strong>Current Mode:</strong> Actively building, experimenting, and scaling systems</p>
+      </div>
+    </div>
+  );
+
+  const hobbyText = (
+    <div className="bio_text_content">
+      <div className="bio_section">
+        <p>In my free time, I like working out and going for runs.</p>
+        <p>I enjoy trying new food and exploring different restaurants, especially when it comes to biryani.</p>
+        <p>I also like watching cricket and following matches whenever I get the chance.</p>
+      </div>
+    </div>
   );
 
       function handleDragStop(event, data) {
@@ -112,8 +132,8 @@ function MyBioFolder() {
         disabled={MybioExpand.expand}
         bounds={{top: 0}}
         defaultPosition={{ 
-          x: window.innerWidth <= 500 ? 35 : 70,
-          y: window.innerWidth <= 500 ? 35 : 40,
+          x: window.innerWidth <= 500 ? 35 : Math.max(140, Math.round(window.innerWidth * 0.3)),
+          y: window.innerWidth <= 500 ? 35 : 18,
         }}
         onStop={(event, data) => handleDragStop(event, data)}
         onStart={() => handleSetFocusItemTrue('About')}
@@ -178,20 +198,20 @@ function MyBioFolder() {
           </p>
           </div>
           <div className="folder_content">
-            <div className="folder_content-bio"
-              style={{ display: generalTap ? 'grid' : 'block' }}
+            <div
+              className={`folder_content-bio ${generalTap ? 'general_layout' : 'stacked_layout'}`}
             >
             <img
               alt="bioPC"
               className={generalTap ? 'bio_img' : 'bio_img_other'}
-              src={generalTap? bioPC : (technologyTap ? tech : hobby)}
+              src={generalTap ? profileImage : (technologyTap ? tech : hobby)}
             />
             <div
               className="biotext_container">
 
-              <p className={generalTap? 'bio_text_1' : 'bio_text_1_other'}>
+              <div className={generalTap? 'bio_text_1' : 'bio_text_1_other'}>
                 {generalTap? bioText : technologyTap? technologyText : hobbyText}
-              </p>   
+              </div>   
             </div>
               
             </div>

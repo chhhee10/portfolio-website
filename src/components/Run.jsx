@@ -36,6 +36,26 @@ function Run() {
    } = useContext(UseContext);
 
   const cannotOpenFile = ['internet', 'type', 'run', 'hard disk (c:)', 'hard disk (d:)', 'cd-rom' ]; // files that should not be opened by RUN
+  const curatedRunItems = [
+    'About',
+    'MyComputer',
+    'Project',
+    'Resume',
+    'ResumeFile',
+    'Mail',
+    'IE',
+    'MSN',
+    'Settings',
+    'Utility',
+    'Picture',
+    'Paint',
+    'Patch',
+    'TaskManager',
+    'MineSweeper',
+    'Tetris',
+    'TicTacToe',
+    'FlappyBird',
+  ];
 
     function handleRunOpenFile(ObjectState, name) {
       const lowerCaseName = name.toLowerCase().trim();
@@ -85,16 +105,9 @@ function Run() {
     }
 
     // Generate allowed desktop items in run's list
-    const listItems = desktopIcon
-      .filter(item => {
-        const lowerCaseName = item.name.toLowerCase();
-        return (
-          !cannotOpenFile.includes(lowerCaseName) &&
-          lowerCaseName !== 'resumefile' &&
-          !lowerCaseName.startsWith('0')
-        );
-      })
-      .map(item => item.name);
+    const listItems = curatedRunItems.filter(item =>
+      item === 'ResumeFile' || desktopIcon.some(icon => icon.name === item)
+    );
 
 
 

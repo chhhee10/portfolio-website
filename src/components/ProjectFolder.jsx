@@ -1,46 +1,26 @@
 import UseContext from '../Context';
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import Draggable from 'react-draggable';
 import { motion } from 'framer-motion';
 import Project from '../assets/regFolder.png';
+import folderIcon from '../assets/folder.png';
+import projects from '../data/projects';
 import '../css/ProjectFolder.css';
 
 function ProjectFolder() {
-  const iconRefs = useRef([]);
-
   const {
-    setCurrentRightClickFolder,
-    refBeingClicked,
-    handleMobileLongPress,
-    setRightClickIcon,
-    setIconBeingRightClicked,
-    timerRef,
-    iconContainerSize,
-    iconImgSize,
-    iconTextSize,
-    iconScreenSize,
-    dragging,
-    key,
-    setDropTargetFolder,
-    dropTargetFolder,
-    handleDrop,
-    handleOnDrag,
-    ProjectFolderRef,
-    imageMapping,
-    desktopIcon,
     themeDragBar,
     ProjectExpand,
     setProjectExpand,
+    projectWindows,
+    openProjectWindow,
     lastTapTime,
     setLastTapTime,
     StyleHide,
     isTouchDevice,
-    handleShow,
-    handleShowMobile,
     handleSetFocusItemTrue,
     inlineStyleExpand,
     inlineStyle,
-    iconFocusIcon,
     deleteTap,
   } = useContext(UseContext);
 
@@ -71,6 +51,20 @@ function ProjectFolder() {
     setLastTapTime(now);
   }
 
+  function openProjectDirectory(project) {
+    openProjectWindow(project);
+  }
+
+  function openProjectDirectoryMobile(project) {
+    const now = Date.now();
+    if (now - lastTapTime < 300) {
+      openProjectDirectory(project);
+    }
+    setLastTapTime(now);
+  }
+
+  const totalSize = projects.reduce((sum, project) => sum + project.sizeKb, 0);
+
   return (
     <Draggable
       axis="both"
@@ -80,29 +74,19 @@ function ProjectFolder() {
       disabled={ProjectExpand.expand}
       bounds={{ top: 0 }}
       defaultPosition={{
-        x: window.innerWidth <= 500 ? 20 : 40,
-        y: window.innerWidth <= 500 ? 40 : 160,
+        x: window.innerWidth <= 500 ? 20 : Math.max(220, Math.round(window.innerWidth * 0.66)),
+        y: window.innerWidth <= 500 ? 40 : 240,
       }}
       onStop={handleDragStop}
       onStart={() => handleSetFocusItemTrue('Project')}
     >
       <div
-        onContextMenu={() => setCurrentRightClickFolder('Project')}
-        onTouchStart={() => setCurrentRightClickFolder('Project')}
         className="folder_folder-project"
-        ref={ProjectFolderRef}
         onClick={(e) => {
           e.stopPropagation();
           handleSetFocusItemTrue('Project');
         }}
-        style={{
-          ...(
-            ProjectExpand.expand
-              ? inlineStyleExpand('Project')
-              : inlineStyle('Project')
-          ),
-          overflow: dragging ? '' : 'hidden',
-        }}
+        style={ProjectExpand.expand ? inlineStyleExpand('Project') : inlineStyle('Project')}
       >
         <div
           className="folder_dragbar-project"
@@ -158,100 +142,36 @@ function ProjectFolder() {
 
         <div
           className="folder_content-project"
-          onClick={() => iconFocusIcon('')}
-          style={{
-            height: ProjectExpand.expand ? 'calc(100svh - 122px)' : '',
-            overflow: dragging ? '' : 'hidden',
-          }}
+          style={{ height: ProjectExpand.expand ? 'calc(100svh - 122px)' : '' }}
         >
-          <div className="parent_container-project" key={key}>
-            <div
-              className="item_container-project"
-              style={{ position: dragging ? 'absolute' : '' }}
-              onClick={(e) => {
-                e.stopPropagation() 
-                iconFocusIcon('');
-                handleSetFocusItemTrue('Project');
-              }}
-            >
-              {desktopIcon.filter((icon) => icon.folderId === 'Project').map((icon) => (
-                <Draggable
-                  axis="both"
-                  handle=".icon"
-                  grid={[10, 10]}
-                  scale={1}
-                  bounds={false}
-                  onStart={() => {
-                    setDropTargetFolder('');
-                    handleSetFocusItemTrue('Project');
-                  }}
-                  onDrag={handleOnDrag(icon.name, iconRefs.current[icon.name])}
-                  onStop={(e) => {
-                    handleDrop(e, icon.name, dropTargetFolder, icon.folderId)
-                    clearTimeout(timerRef.current)
-                  }}
-                  key={icon.name}
-                >
-                  <div
-                    className="icon"
-                    style={iconContainerSize(iconScreenSize)}
-                    ref={(el) => (iconRefs.current[icon.name] = el)}
-                    onContextMenu={() => {
-                      setRightClickIcon(true);
-                      iconFocusIcon(icon.name);
-                      setIconBeingRightClicked(icon);
-                      refBeingClicked.current = iconRefs.current[icon.name]
-                    }}
-                    onDoubleClick={() => handleShow(icon.name)}
-                    onClick={!isTouchDevice ? (e) => {
-                      iconFocusIcon(icon.name);
-                      e.stopPropagation();
-                    } : undefined}
-                    onTouchStart={(e) => {
-                      e.stopPropagation();
-                      handleShowMobile(icon.name);
-                      iconFocusIcon(icon.name);
-                      handleMobileLongPress(e, icon);
-                      refBeingClicked.current = iconRefs.current[icon.name]
-                    }}
-                  >
-                    <img
-                      src={imageMapping(icon.pic)}
-                      alt="#"
-                      className={icon.focus ? 'img_focus' : ''}
-                      style={iconImgSize(iconScreenSize)}
-                    />
-                    <p
-                      className={icon.focus ? 'p_focus' : 'p_normal'}
-                      style={iconTextSize(iconScreenSize)}
-                    >
-                      {icon.name}
-                    </p>
-                  </div>
-                </Draggable>
-              ))}
-            </div>
+          <div className="project_directory_list">
+            {projects.map((project) => (
+              <button
+                key={project.id}
+                type="button"
+                className={`project_directory_item ${projectWindows.some(windowItem => windowItem.project.id === project.id && !windowItem.hide) ? 'active' : ''}`}
+                onDoubleClick={() => openProjectDirectory(project)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onTouchStart={(e) => {
+                  e.stopPropagation();
+                  openProjectDirectoryMobile(project);
+                }}
+              >
+                <img src={folderIcon} alt="" />
+                <span>{project.name}</span>
+              </button>
+            ))}
           </div>
         </div>
 
         <div className="btm_bar_container-project">
           <div className="object_bar-project">
-            <p>
-              {desktopIcon.filter((icon) => icon.folderId === 'Project').some((icon) => icon.focus)
-                ? '1 object(s) selected'
-                : `${desktopIcon.filter((icon) => icon.folderId === 'Project').length} object(s)`}
-            </p>
+            <p>{projects.length} object(s)</p>
           </div>
           <div className="size_bar-project">
-            <p>
-              {(() => {
-                const filteredIcons = desktopIcon.filter((icon) => icon.folderId === 'Project');
-                const totalSize = filteredIcons.reduce((total, icon) => total + icon.size, 0);
-                return filteredIcons.every((icon) => !icon.focus)
-                  ? totalSize
-                  : filteredIcons.filter((icon) => icon.focus).reduce((sum, icon) => sum + icon.size, 0);
-              })()} KB
-            </p>
+            <p>{totalSize} KB</p>
           </div>
         </div>
       </div>

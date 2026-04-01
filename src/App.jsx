@@ -31,7 +31,7 @@ import RightClickWindows from './components/RightClickWindows';
 import axios from 'axios';
 import loadingSpin from './assets/loading.gif'
 import win95Icon from './assets/95icon.png'
-import defaultWallpaper from './assets/newbg.png'
+import defaultWallpaper from './assets/newbg.gif'
 import NewsApp from './components/NewsApp'
 import SpinningCat from './components/SpinningCat';
 import Patch from './components/Patch';

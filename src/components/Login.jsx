@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import login_icon from '../assets/login.png'
 import mario from '../assets/mario.gif'
 import tunnel from '../assets/tunnel.png'
-import defaultWallpaper from '../assets/newbg.png'
+import defaultWallpaper from '../assets/newbg.gif'
 import '../css/Login.css'
 
 function Login() {

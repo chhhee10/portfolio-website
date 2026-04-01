@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { SketchPicker } from 'react-color';
 import settingIcon from '../assets/setting.png'
 import bgPic from '../assets/bgpc.png'
-import defaultWallpaper from '../assets/newbg.png'
+import defaultWallpaper from '../assets/newbg.gif'
 import bg0 from '../assets/bg0.png'
 import bg1 from '../assets/bg1.png'
 import bg2 from '../assets/bg2.jpg'

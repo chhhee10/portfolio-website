@@ -213,6 +213,7 @@
       box-shadow: var(--shadow);
       padding: 6px 14px;
       width: fit-content;
+      max-width: 100%;
     }
 
     .hero-tag::before {
@@ -226,10 +227,11 @@
 
     .hero-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 12vw, 10rem);
+      font-size: clamp(3.5rem, 14vw, 10rem);
       font-weight: 400;
       line-height: 0.9;
       letter-spacing: 0.02em;
+      word-break: break-word;
     }
 
     .hero-name em {
@@ -834,6 +836,24 @@
 
       .hero-left {
         padding: 60px 5vw 20px;
+      }
+
+      .hero-name {
+        font-size: clamp(3.5rem, 15vw, 6rem);
+      }
+
+      .hero-tag {
+        font-size: 0.65rem;
+        padding: 6px 10px;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+      }
+
+      .hero-ctas .btn {
+        width: 100%;
+        text-align: center;
       }
 
       .hero-right {

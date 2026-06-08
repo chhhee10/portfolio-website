@@ -213,7 +213,6 @@
       box-shadow: var(--shadow);
       padding: 6px 14px;
       width: fit-content;
-      max-width: 100%;
     }
 
     .hero-tag::before {
@@ -227,11 +226,10 @@
 
     .hero-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 14vw, 10rem);
+      font-size: clamp(5rem, 12vw, 10rem);
       font-weight: 400;
       line-height: 0.9;
       letter-spacing: 0.02em;
-      word-break: break-word;
     }
 
     .hero-name em {
@@ -838,24 +836,6 @@
         padding: 60px 5vw 20px;
       }
 
-      .hero-name {
-        font-size: clamp(3.5rem, 15vw, 6rem);
-      }
-
-      .hero-tag {
-        font-size: 0.65rem;
-        padding: 6px 10px;
-      }
-
-      .hero-ctas {
-        flex-direction: column;
-      }
-
-      .hero-ctas .btn {
-        width: 100%;
-        text-align: center;
-      }
-
       .hero-right {
         padding: 20px 5vw 60px;
       }
@@ -901,23 +881,10 @@
         flex-direction: column;
       }
 
-      .about-strip-text {
-        padding: 40px 0;
-      }
-
       .about-strip-stats {
         border-left: none;
         border-top: 2px solid rgba(255, 255, 255, 0.12);
         grid-template-columns: repeat(2, 1fr);
-        margin: 0 -5vw;
-      }
-
-      .about-stat {
-        padding: 24px 16px;
-      }
-
-      .about-stat-num {
-        font-size: 2.2rem;
       }
 
       .about-stat:nth-child(n) {

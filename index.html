@@ -1,66 +1,1339 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <!-- SEO Meta Tags -->
-    <meta
-      name="description"
-      content="Explore Chetan's Windows 95-inspired portfolio, showcasing React web development projects, retro UI designs, and interactive features."
-    />
-    <meta
-      name="keywords"
-      content="Chetan, Windows 95 portfolio, React developer portfolio, retro web design, web development projects, UX/UI design, JavaScript projects, front-end development, full-stack development"
-    />
-    <meta name="author" content="Chetan" />
-    <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="Chetan | Windows 95 React Developer Portfolio" />
-    <meta
-      property="og:description"
-      content="Step into nostalgia with Chetan's Windows 95-themed portfolio, featuring cutting-edge React web projects and interactive retro designs."
-    />
-    <meta property="og:image" content="/src/assets/95icon.png" />
-    <meta property="og:url" content="https://yourportfolio.com" />
-    <meta property="og:type" content="website" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chetan Raghuvanshi — Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=Bebas+Neue&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg: #F5F0E8;
+      --ink: #0D0D0D;
+      --card: #FFFFFF;
+      --accent1: #FFE14D;
+      /* yellow */
+      --accent2: #4ADE80;
+      /* green  */
+      --accent3: #60A5FA;
+      /* blue   */
+      --accent4: #F87171;
+      /* red    */
+      --border: 2px solid #0D0D0D;
+      --shadow: 4px 4px 0 #0D0D0D;
+      --shadow-lg: 6px 6px 0 #0D0D0D;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+      --radius: 0px;
+    }
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Chetan | Windows 95 React Developer Portfolio" />
-    <meta
-      name="twitter:description"
-      content="Dive into Chetan's retro-inspired portfolio built with React. Discover web development projects and nostalgic Windows 95 aesthetics."
-    />
-    <meta name="twitter:image" content="/src/assets/95icon.png" />
+    /* ── RESET ──────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/src/assets/95icon.png" />
-    <link rel="apple-touch-icon" href="/src/assets/95icon.png" />
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <!-- Preloading and Resource Hints -->
-    <link rel="preload" href="/src/assets/95icon.png" as="image" />
-    <link rel="preload" href="/src/main.jsx" as="script" />
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-    <!-- Title -->
-    <title>Chetan Raghuvanshi</title>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0D8FVG7HD"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-        gtag('config', 'G-S0D8FVG7HD');
-    </script>
-    
-  </head>
-  <body>
-    <div id="root" role="main" aria-label="Chetan's Portfolio"></div>
-    <script type="module" src="/src/main.jsx" defer></script>
-  </body>
+    /* ── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 58px;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-left: var(--border);
+      transition: background 0.15s;
+    }
+
+    .nav-links a:hover {
+      background: var(--accent1);
+    }
+
+    .nav-links li.nav-cta-wrap {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 18px 20px;
+      border-left: var(--border);
+      transition: background 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent1);
+      color: var(--ink);
+    }
+
+    /* ── LAYOUT HELPERS ─────────────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
+
+    section {
+      padding: 80px 5vw;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    #hero {
+      min-height: calc(100vh - 58px);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+      border-bottom: var(--border);
+      max-width: 100%;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding: 100px 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      max-width: 800px;
+      flex: 1;
+    }
+
+    .hero-right {
+      padding: 100px 5vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+    }
+
+    .hero-img-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      background: var(--accent1);
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .hero-img-wrapper:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 #0D0D0D;
+    }
+
+    .hero-img-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--accent1);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 6px 14px;
+      width: fit-content;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-name em {
+      font-style: normal;
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--ink);
+    }
+
+    .hero-desc {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 400;
+      max-width: 460px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s;
+      background: var(--card);
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--ink);
+    }
+
+    .btn-resume {
+      background: var(--accent1);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-resume:hover {
+      background: var(--accent1);
+    }
+
+    .btn-resume-dl {
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    /* btn styles continue below */
+
+    /* ── ABOUT STRIP ────────────────────────────────────────── */
+    .about-strip {
+      border-bottom: var(--border);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 0 5vw;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .about-strip-text {
+      flex: 1;
+      padding: 60px 0;
+      max-width: 680px;
+    }
+
+    .about-strip-text h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .about-strip-text p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #ccc;
+      max-width: 600px;
+    }
+
+    .about-strip-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      flex-shrink: 0;
+      border-left: 2px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .about-stat {
+      padding: 36px 40px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .about-stat:nth-child(odd) {
+      border-right: 2px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .about-stat:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .about-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--accent1);
+    }
+
+    .about-stat-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    .btn-github {
+      background: var(--card);
+      color: var(--ink);
+      border-color: var(--ink);
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-github:hover {
+      background: var(--card);
+    }
+
+    .btn-linkedin {
+      background: var(--accent3);
+      color: var(--ink);
+      border-color: var(--ink);
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-linkedin:hover {
+      background: var(--accent3);
+    }
+
+    /* ── SECTION HEADER ─────────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 48px;
+      border-bottom: var(--border);
+      padding-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #888;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── PROJECTS ───────────────────────────────────────────── */
+    #projects {
+      border-bottom: var(--border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      border: var(--border);
+      padding: 36px;
+      position: relative;
+      background: var(--card);
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-card:hover {
+      z-index: 2;
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-accent {
+      width: 36px;
+      height: 6px;
+      flex-shrink: 0;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #444;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 2px;
+      width: fit-content;
+      transition: opacity 0.12s;
+    }
+
+    .project-link:hover {
+      opacity: 0.6;
+    }
+
+    .project-link svg {
+      flex-shrink: 0;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ── EXPERIENCE ─────────────────────────────────────────── */
+    #experience {
+      border-bottom: var(--border);
+    }
+
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .exp-item {
+      border: var(--border);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      overflow: hidden;
+      transition: box-shadow 0.15s;
+    }
+
+    .exp-item:hover {
+      z-index: 2;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .exp-left {
+      border-right: var(--border);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg);
+    }
+
+    .exp-period {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .exp-company {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .exp-type {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      background: var(--accent1);
+      border: 1.5px solid var(--ink);
+      width: fit-content;
+      margin-top: 4px;
+    }
+
+    .exp-right {
+      padding: 32px 36px;
+      background: var(--card);
+    }
+
+    .exp-role {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .exp-stack {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: #666;
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    .exp-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exp-points li {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: #333;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .exp-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      font-family: var(--mono);
+      color: #888;
+    }
+
+    /* ── SKILLS ─────────────────────────────────────────────── */
+    #skills {
+      border-bottom: var(--border);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .skill-block {
+      border: var(--border);
+      padding: 32px;
+      background: var(--card);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skill-block-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .skill-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--ink);
+      flex-shrink: 0;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-pill {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 11px;
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .skill-pill:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    #contact {
+      background: var(--ink);
+      color: var(--bg);
+      max-width: 100%;
+      padding: 80px 5vw;
+      border-top: var(--border);
+    }
+
+    #contact .section-header h2 {
+      color: var(--bg);
+    }
+
+    #contact .section-header {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-left {
+      padding: 48px;
+      border-right: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-left h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .contact-left p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #aaa;
+      margin-bottom: 32px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.12s;
+    }
+
+    .contact-link-item:hover {
+      color: var(--accent1);
+    }
+
+    .contact-link-item span {
+      color: #555;
+    }
+
+    .contact-right {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .contact-stat {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .contact-val {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ddd;
+      margin-bottom: 12px;
+    }
+
+    .contact-open {
+      margin-top: 24px;
+      display: inline-block;
+      background: var(--accent1);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border: 2px solid #ffffff;
+      box-shadow: 4px 4px 0 #ffffff;
+      transition: transform 0.12s, box-shadow 0.12s;
+      cursor: pointer;
+      width: fit-content;
+    }
+
+    .contact-open:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 #ffffff;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: #555;
+      border-top: var(--border);
+      padding: 20px 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    footer span {
+      color: #333;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      #hero {
+        min-height: auto;
+        flex-direction: column;
+      }
+
+      .hero-left {
+        padding: 60px 5vw 20px;
+      }
+
+      .hero-right {
+        padding: 20px 5vw 60px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card.featured {
+        flex-direction: column;
+      }
+
+      .featured-side {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .exp-item {
+        grid-template-columns: 1fr;
+      }
+
+      .exp-left {
+        border-right: none;
+        border-bottom: var(--border);
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-left {
+        border-right: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .about-strip {
+        flex-direction: column;
+      }
+
+      .about-strip-stats {
+        border-left: none;
+        border-top: 2px solid rgba(255, 255, 255, 0.12);
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-stat:nth-child(n) {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .about-stat:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── SCROLL ANIMATION ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">CHHHEE10</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li class="nav-cta-wrap"><a class="nav-cta" href="mailto:chetanraghuvanshi85@gmail.com">Hire Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Available for roles &amp; internships</div>
+      <h1 class="hero-name">
+        Chetan<br>
+        <em>Raghuvanshi</em>
+      </h1>
+      <p class="hero-desc">
+        Software engineer focused on AI/ML systems, backend architecture, and Web3 infrastructure. I build things that
+        work — multi-agent pipelines, production APIs, and decentralized protocols.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#projects">View Projects</a>
+        <a class="btn" href="mailto:chetanraghuvanshi85@gmail.com">Get in Touch</a>
+        <a class="btn btn-resume" href="Chetan-Raghuvanshi-Resume.pdf" target="_blank">View Resume
+          ↗</a>
+      </div>
+    </div>
+    <div class="hero-right reveal">
+      <div class="hero-img-wrapper">
+        <img src="IMG_20231215_211615_Bokeh_2-removebg-preview-min (1).png" alt="Chetan Raghuvanshi">
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about" class="about-strip">
+    <div class="about-strip-text">
+      <h2>Building at the intersection of AI and systems engineering.</h2>
+      <p>
+        Third-year Computer Science student at Sir MVIT, Bengaluru, specialising in IoT, Cybersecurity, and Blockchain
+        Technology. Currently interning at BG THub where I architect backend systems and AI agents for mobility,
+        healthcare, and logistics platforms. I compete in hackathons regularly — and occasionally win.
+      </p>
+    </div>
+    <div class="about-strip-stats">
+      <div class="about-stat">
+        <div class="about-stat-num">8+</div>
+        <div class="about-stat-label">Projects shipped</div>
+      </div>
+      <div class="about-stat" style="align-items: center;">
+        <a class="btn btn-github" href="https://github.com/chhhee10" target="_blank">
+          GitHub ↗
+        </a>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">2×</div>
+        <div class="about-stat-label">Industry internships</div>
+      </div>
+      <div class="about-stat" style="align-items: center;">
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/in/chetan-raghuvanshi/" target="_blank">
+          LinkedIn ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent1);"></div>
+        <div class="project-title">CAI — Chartered Accountant Intelligence</div>
+        <div class="project-desc">
+          A 6-agent AI tax advisory system with decoupled LLM reasoning, Vectorize Hindsight persistent vector store,
+          and zero-hallucination guardrails. Multi-namespace RAG across 5 semantic stores with sub-300ms average latency
+          and exponential-backoff resilience.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">LangGraph</span>
+          <span class="tag">Groq</span><span class="tag">RAG</span><span class="tag">LangSmith</span>
+          <span class="tag">Qwen-32B</span>
+        </div>
+        <a class="project-link" href="https://github.com/chhhee10/CAI" target="_blank">
+          GitHub
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent3);"></div>
+        <div class="project-title">VAULTLESS</div>
+        <div class="project-desc">
+          Passwordless biometric authentication on Solana Devnet using Fuzzy Extractors. 64-dimensional behavioural
+          engine — keystroke, pointer, accelerometer, gyroscope — with Z-score normalisation and cosine similarity for
+          sub-100ms identity verification. Ghost Wallet duress protocol emits on-chain alerts via Anchor events.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Solana</span><span class="tag">Anchor/Rust</span><span class="tag">React</span>
+          <span class="tag">TypeScript</span><span class="tag">Cryptography</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/chhhee10/VAULTLESS" target="_blank">
+            GitHub
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a class="project-link" href="https://vaultless-sys.vercel.app/" target="_blank">
+            Live Demo
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent2);"></div>
+        <div class="project-title">PullSmith</div>
+        <div class="project-desc">
+          Autonomous 7-agent PR review pipeline. Code review, security scanning, test generation, and merge/reject
+          decisions via GitHub webhooks. Self-healing CI loop with multi-model LLM fallbacks and SSE-based live
+          streaming. 2nd place, Scalar Hackathon (200+ teams).
+        </div>
+        <div class="project-tags">
+          <span class="tag">FastAPI</span><span class="tag">LangChain</span><span class="tag">Groq</span>
+          <span class="tag">Gemini</span><span class="tag">GitHub API</span>
+        </div>
+        <a class="project-link" href="https://github.com/chhhee10/PullSmith" target="_blank">
+          GitHub
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent4);"></div>
+        <div class="project-title">LexGuard</div>
+        <div class="project-desc">
+          7-agent contract compliance pipeline with a Chrome MV3 extension for real-time document analysis. Dark pattern
+          detection, consequence simulator, and multilingual support for Indian languages. Built for the Google Prompt
+          Wars hackathon using FastAPI, Gemini, and Cloud Run.
+        </div>
+        <div class="project-tags">
+          <span class="tag">FastAPI</span><span class="tag">Gemini</span><span class="tag">Cloud Run</span>
+          <span class="tag">Chrome MV3</span><span class="tag">Multi-Agent</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link" href="https://github.com/chhhee10/LexGuard" target="_blank">
+            GitHub
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a class="project-link" href="https://lexguard-1068366375204.us-central1.run.app/" target="_blank">
+            Live Demo
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent1);"></div>
+        <div class="project-title">Aegis Agent</div>
+        <div class="project-desc">
+          Agentic job-hunting pipeline with five specialised agents: Scraper, Filter, ResumeTailor, CoverLetter, and
+          Delivery. Powered by Gemini 2.5 Flash and Gmail API with Apify scraping across LinkedIn, Naukri, Internshala,
+          and other Indian job platforms.
+        </div>
+        <div class="project-tags">
+          <span class="tag">Gemini</span><span class="tag">Gmail API</span><span class="tag">Apify</span>
+          <span class="tag">Python</span><span class="tag">Agentic</span>
+        </div>
+        <a class="project-link" href="https://github.com/chhhee10/Aegis_Agent" target="_blank">
+          GitHub
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-accent" style="background:var(--accent3);"></div>
+        <div class="project-title">Air Quality Monitoring System</div>
+        <div class="project-desc">
+          IoT-based real-time AQI monitoring system using ESP32, MQ sensors, and a React dashboard. Edge processing with
+          MQTT protocol for low-latency sensor telemetry and cloud-based historical analysis.
+        </div>
+        <div class="project-tags">
+          <span class="tag">ESP32</span><span class="tag">IoT</span><span class="tag">MQTT</span>
+          <span class="tag">React</span><span class="tag">Sensors</span>
+        </div>
+        <a class="project-link" href="https://github.com/chhhee10/Air-Quality-Monitoring-System" target="_blank">
+          GitHub
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2>Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Apr 2026 — Present</div>
+          <div class="exp-company">BG THub</div>
+          <div class="exp-type">Backend Intern</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Backend Development Intern</div>
+          <div class="exp-stack">Python · FastAPI · Firebase · REST APIs · DPDP Act 2023</div>
+          <ul class="exp-points">
+            <li>Evaluated 5+ API vendor ecosystems for a mobility aggregator, mapping integration complexity to define
+              the backend engineering roadmap.</li>
+            <li>Architected an AI conversational agent with intent routing, backend API contracts, and session-state
+              management via RESTful microservices.</li>
+            <li>Integrated Firebase (Auth, Firestore, Cloud Functions) into a logistics backend — cutting auth setup
+              time by 60% with real-time data sync.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-period">Feb 2026 — Apr 2026</div>
+          <div class="exp-company">All India Org. of Pensioners</div>
+          <div class="exp-type">Web Dev Intern</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Web Developer Intern</div>
+          <div class="exp-stack">React · Node.js · TypeScript · Cloudflare · GitHub Actions</div>
+          <ul class="exp-points">
+            <li>Built and deployed a full-stack grievance portal sustaining 1,250+ MAU and 17.6k+ requests/month at 98%
+              uptime on Cloudflare.</li>
+            <li>Engineered an accessibility-first UI for elderly users, reducing task-completion friction by 40% through
+              WCAG-compliant design.</li>
+            <li>Automated 30+ daily production updates via an encrypted messaging layer, eliminating all manual release
+              overhead.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-block reveal">
+        <div class="skill-block-title">
+          <div class="skill-dot" style="background:var(--accent1);"></div>
+          AI &amp; LLMs
+        </div>
+        <div class="skill-pills">
+          <span class="skill-pill">LangChain</span><span class="skill-pill">LangGraph</span>
+          <span class="skill-pill">Multi-Agent</span><span class="skill-pill">RAG</span>
+          <span class="skill-pill">Prompt Engineering</span><span class="skill-pill">Vector Search</span>
+          <span class="skill-pill">FAISS</span><span class="skill-pill">Groq</span>
+          <span class="skill-pill">OpenAI</span><span class="skill-pill">Gemini</span>
+          <span class="skill-pill">LangSmith</span>
+        </div>
+      </div>
+
+      <div class="skill-block reveal">
+        <div class="skill-block-title">
+          <div class="skill-dot" style="background:var(--accent2);"></div>
+          Backend &amp; Systems
+        </div>
+        <div class="skill-pills">
+          <span class="skill-pill">Python</span><span class="skill-pill">FastAPI</span>
+          <span class="skill-pill">Node.js</span><span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">PostgreSQL</span><span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">Firebase</span><span class="skill-pill">REST APIs</span>
+          <span class="skill-pill">Docker</span><span class="skill-pill">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="skill-block reveal">
+        <div class="skill-block-title">
+          <div class="skill-dot" style="background:var(--accent3);"></div>
+          Frontend
+        </div>
+        <div class="skill-pills">
+          <span class="skill-pill">React</span><span class="skill-pill">Next.js</span>
+          <span class="skill-pill">Vite</span><span class="skill-pill">Tailwind CSS</span>
+          <span class="skill-pill">HTML / CSS</span><span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Cloudflare</span><span class="skill-pill">Vercel</span>
+        </div>
+      </div>
+
+      <div class="skill-block reveal">
+        <div class="skill-block-title">
+          <div class="skill-dot" style="background:var(--accent4);"></div>
+          Blockchain &amp; Web3
+        </div>
+        <div class="skill-pills">
+          <span class="skill-pill">Solana</span><span class="skill-pill">Anchor</span>
+          <span class="skill-pill">Rust</span><span class="skill-pill">Solidity</span>
+          <span class="skill-pill">Smart Contracts</span><span class="skill-pill">DeFi</span>
+          <span class="skill-pill">Ethers.js</span><span class="skill-pill">Web3.js</span>
+          <span class="skill-pill">DIDs</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div id="contact">
+    <div class="contact-inner">
+      <div class="section-header reveal">
+        <span class="section-num" style="color:#555;">05</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-left">
+          <h3>Let's build something worth building.</h3>
+          <p>Open to full-time roles, internships, and collaborative projects in AI/ML, backend engineering, and Web3.
+            If you have something interesting, reach out.</p>
+          <div class="contact-links">
+            <a class="contact-link-item" href="mailto:chetanraghuvanshi85@gmail.com">
+              Email <span>chetanraghuvanshi85@gmail.com</span>
+            </a>
+            <a class="contact-link-item" href="https://linkedin.com/in/chetan-raghuvanshi" target="_blank">
+              LinkedIn <span>chetan-raghuvanshi</span>
+            </a>
+            <a class="contact-link-item" href="https://github.com/chhhee10" target="_blank">
+              GitHub <span>chhhee10</span>
+            </a>
+            <a class="contact-link-item" href="https://chetan-portfolio.xyz" target="_blank">
+              Portfolio <span>chetan-portfolio.xyz</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-right">
+          <div>
+            <div class="contact-stat">Location</div>
+            <div class="contact-val">Bengaluru, India</div>
+          </div>
+          <div>
+            <div class="contact-stat">Education</div>
+            <div class="contact-val">B.E. CSE — Sir MVIT, VTU (May 2027)</div>
+          </div>
+          <div>
+            <div class="contact-stat">Specialisation</div>
+            <div class="contact-val">IoT · Cybersecurity · Blockchain</div>
+          </div>
+          <div>
+            <div class="contact-stat">Status</div>
+            <div class="contact-val" style="color:var(--accent2);">● Open to opportunities</div>
+          </div>
+          <a class="contact-open" href="mailto:chetanraghuvanshi85@gmail.com">Send a Message →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Chetan Raghuvanshi</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stagger children within grids
+    document.querySelectorAll('.projects-grid, .skills-grid, .exp-list').forEach(grid => {
+      Array.from(grid.querySelectorAll('.reveal')).forEach((el, i) => {
+        el.style.transitionDelay = `${i * 60}ms`;
+      });
+    });
+  </script>
+</body>
+
 </html>
-
